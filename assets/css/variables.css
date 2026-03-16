@@ -1,0 +1,70 @@
+/* ============================================
+   CASHFLOW — Design Tokens & CSS Variables
+   ============================================ */
+
+:root {
+  /* Background layers */
+  --bg-base:      #080b12;
+  --bg-surface:   #0f1420;
+  --bg-elevated:  #161d2e;
+  --bg-overlay:   #1d2640;
+
+  /* Borders */
+  --border-subtle:  rgba(255,255,255,.06);
+  --border-default: rgba(255,255,255,.10);
+  --border-strong:  rgba(255,255,255,.18);
+
+  /* Brand accent */
+  --accent:        #e8c547;
+  --accent-dim:    rgba(232,197,71,.12);
+  --accent-glow:   rgba(232,197,71,.30);
+  --accent-hover:  #f5d55a;
+
+  /* Semantic colors */
+  --income:        #34d89a;
+  --income-dim:    rgba(52,216,154,.12);
+  --expense:       #f05674;
+  --expense-dim:   rgba(240,86,116,.12);
+  --neutral:       #6b8aff;
+  --neutral-dim:   rgba(107,138,255,.12);
+
+  /* Text */
+  --text-primary:  #f0f4ff;
+  --text-secondary: #8b96b8;
+  --text-muted:    #4e5a7a;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Outfit', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Spacing scale */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-7: 32px; --sp-8: 40px;
+
+  /* Radii */
+  --r-sm: 8px; --r-md: 14px; --r-lg: 20px; --r-xl: 28px;
+
+  /* Shadows */
+  --shadow-sm:  0 2px 12px rgba(0,0,0,.35);
+  --shadow-md:  0 8px 32px rgba(0,0,0,.50);
+  --shadow-lg:  0 20px 60px rgba(0,0,0,.65);
+
+  /* Sidebar width */
+  --sidebar-w: 248px;
+
+  /* Transitions */
+  --ease:    cubic-bezier(.4,0,.2,1);
+  --ease-out: cubic-bezier(0,0,.2,1);
+
+  /* Z-index scale */
+  --z-sidebar: 100;
+  --z-modal:   200;
+  --z-toast:   300;
+}
+
+/* ── Dark scrollbar ── */
+* { scrollbar-width: thin; scrollbar-color: var(--bg-overlay) transparent; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg-overlay); border-radius: 99px; }
