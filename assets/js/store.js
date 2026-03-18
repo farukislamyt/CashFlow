@@ -1,388 +1,412 @@
-/**
- * CashFlow — Store
- * Secure, versioned localStorage data layer.
- * No seed data. All state persisted safely.
- */
+/* CashFlow — Store v3.0 */
+'use strict';
 
 const Store = (() => {
-  'use strict';
-
-  const VERSION  = 'cf_v1';
-  const KEYS = {
-    transactions: `${VERSION}_transactions`,
-    budgets:      `${VERSION}_budgets`,
-    settings:     `${VERSION}_settings`,
+  const VER  = 'cf_v3';
+  const KEY  = {
+    tx:       VER + '_tx',
+    budgets:  VER + '_budgets',
+    settings: VER + '_settings',
+    recurring:VER + '_recurring',
+    goals:    VER + '_goals',
   };
 
-  // ── Secure read/write with error boundaries ──
-  function _read(key, fallback) {
+  const DEF_SETTINGS = {
+    userName: 'My Account',
+    currency: '৳',
+    notifications: true,
+    compactView: false,
+    showInsights: true,
+  };
+
+  /* ── I/O ── */
+  function _r(key, fb) {
     try {
       const raw = localStorage.getItem(key);
-      if (raw === null) return fallback;
-      return JSON.parse(raw);
-    } catch (e) {
-      console.warn('[Store] read error', key, e);
-      return fallback;
-    }
+      if (raw === null) return fb;
+      const v = JSON.parse(raw);
+      return v === null ? fb : v;
+    } catch { return fb; }
   }
 
-  function _write(key, value) {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-      return true;
-    } catch (e) {
-      // Handle quota exceeded
-      if (e.name === 'QuotaExceededError') {
-        console.error('[Store] Storage quota exceeded. Cannot save data.');
-        _dispatchEvent('storage:quota_exceeded');
-      } else {
-        console.error('[Store] write error', key, e);
-      }
+  function _w(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); return true; }
+    catch (e) {
+      if (e.name === 'QuotaExceededError' || e.code === 22) _emit('cf:quota');
       return false;
     }
   }
 
-  function _dispatchEvent(name, detail = {}) {
-    window.dispatchEvent(new CustomEvent(name, { detail }));
+  function _emit(name, detail) {
+    try { window.dispatchEvent(new CustomEvent(name, { detail })); } catch {}
   }
 
-  // ── UID generator ──
+  /* ── UID ── */
   function uid() {
-    return [
-      Date.now().toString(36),
-      Math.random().toString(36).slice(2, 6),
-      Math.random().toString(36).slice(2, 6),
-    ].join('_');
+    return Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,8) + '_' + Math.random().toString(36).slice(2,5);
   }
 
-  // ── Default values ──
-  const DEFAULTS = {
-    settings: {
-      userName:    'My Account',
-      currency:    '৳',
-      dateLocale:  'en-BD',
-      notifications: true,
-      compactView: false,
-    },
-    budgets: {},
-    transactions: [],
-  };
-
-  // ── Load state ──
-  let _txs      = _read(KEYS.transactions, DEFAULTS.transactions);
-  let _budgets  = _read(KEYS.budgets,      DEFAULTS.budgets);
-  let _settings = { ...DEFAULTS.settings, ..._read(KEYS.settings, {}) };
-
-  // Validate loaded data
-  if (!Array.isArray(_txs))   _txs = [];
-  if (typeof _budgets !== 'object' || Array.isArray(_budgets)) _budgets = {};
-
-  // ── Persist helpers ──
-  function _saveTx()  {
-    const ok = _write(KEYS.transactions, _txs);
-    if (ok) _dispatchEvent('cf:data_changed', { type: 'transactions' });
-    return ok;
-  }
-  function _saveBudgets() {
-    const ok = _write(KEYS.budgets, _budgets);
-    if (ok) _dispatchEvent('cf:data_changed', { type: 'budgets' });
-    return ok;
-  }
-  function _saveSettings() {
-    return _write(KEYS.settings, _settings);
+  /* ── Date helpers ── */
+  function todayISO() {
+    const d = new Date(), y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,'0'), day = String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`;
   }
 
-  // ══════════════════════════════════════════
-  // TRANSACTIONS API
-  // ══════════════════════════════════════════
-
-  function getAll() {
-    return [..._txs];
+  function isoDate(d) {
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   }
 
-  function getById(id) {
-    return _txs.find(t => t.id === id) || null;
+  function parseDate(s) {
+    if (!s || typeof s !== 'string') return null;
+    const d = new Date(s + 'T00:00:00');
+    return isNaN(d.getTime()) ? null : d;
   }
+
+  /* ── State ── */
+  let _tx   = _r(KEY.tx, []);
+  let _bud  = _r(KEY.budgets, {});
+  let _set  = { ...DEF_SETTINGS, ..._r(KEY.settings, {}) };
+  let _rec  = _r(KEY.recurring, []);
+  let _goals= _r(KEY.goals, []);
+
+  // Validate
+  if (!Array.isArray(_tx))   _tx   = [];
+  if (!Array.isArray(_rec))  _rec  = [];
+  if (!Array.isArray(_goals))_goals= [];
+  if (typeof _bud !== 'object' || Array.isArray(_bud)) _bud = {};
+
+  // Sanitize transactions
+  _tx = _tx.filter(t => t && t.id && t.type && t.desc && t.amount > 0);
+
+  /* ── Savers ── */
+  function _sTx()  { _w(KEY.tx, _tx);        _emit('cf:changed', { type:'tx' }); }
+  function _sBud() { _w(KEY.budgets, _bud);  _emit('cf:changed', { type:'budget' }); }
+  function _sSet() { _w(KEY.settings, _set); _emit('cf:settings'); }
+  function _sRec() { _w(KEY.recurring, _rec);_emit('cf:changed', { type:'recurring' }); }
+  function _sGoa() { _w(KEY.goals, _goals);  _emit('cf:changed', { type:'goals' }); }
+
+  /* ═══════════════════════
+     TRANSACTIONS
+  ═══════════════════════ */
+  function getAll()    { return [..._tx]; }
+  function getById(id) { return _tx.find(t => t.id === id) ?? null; }
 
   function add(data) {
     const tx = {
-      id:       uid(),
-      type:     data.type,
-      desc:     String(data.desc || '').trim().slice(0, 100),
-      amount:   Math.abs(parseFloat(data.amount) || 0),
-      category: data.category || 'other',
-      date:     data.date || _todayISO(),
-      note:     String(data.note || '').trim().slice(0, 200),
+      id:        uid(),
+      type:      data.type === 'income' ? 'income' : 'expense',
+      desc:      String(data.desc ?? '').trim().slice(0,100),
+      amount:    Math.max(0, parseFloat(data.amount) || 0),
+      category:  String(data.category ?? 'other'),
+      date:      String(data.date ?? todayISO()),
+      note:      String(data.note ?? '').trim().slice(0,200),
+      recurId:   data.recurId || null,
       createdAt: Date.now(),
     };
-    _txs.unshift(tx);
-    _saveTx();
+    if (!tx.desc || tx.amount <= 0) return null;
+    _tx.unshift(tx);
+    _sTx();
     return tx;
   }
 
   function update(id, data) {
-    const idx = _txs.findIndex(t => t.id === id);
-    if (idx === -1) return false;
-    _txs[idx] = {
-      ..._txs[idx],
-      type:     data.type     || _txs[idx].type,
-      desc:     data.desc     !== undefined ? String(data.desc).trim().slice(0, 100)  : _txs[idx].desc,
-      amount:   data.amount   !== undefined ? Math.abs(parseFloat(data.amount) || 0)  : _txs[idx].amount,
-      category: data.category || _txs[idx].category,
-      date:     data.date     || _txs[idx].date,
-      note:     data.note     !== undefined ? String(data.note).trim().slice(0, 200)  : _txs[idx].note,
+    const i = _tx.findIndex(t => t.id === id);
+    if (i < 0) return false;
+    const o = _tx[i];
+    _tx[i] = {
+      ...o,
+      type:      data.type     ?? o.type,
+      desc:      data.desc     !== undefined ? String(data.desc).trim().slice(0,100)   : o.desc,
+      amount:    data.amount   !== undefined ? Math.max(0, parseFloat(data.amount)||0) : o.amount,
+      category:  data.category ?? o.category,
+      date:      data.date     ?? o.date,
+      note:      data.note     !== undefined ? String(data.note).trim().slice(0,200)   : o.note,
       updatedAt: Date.now(),
     };
-    _saveTx();
+    _sTx();
     return true;
   }
 
   function remove(id) {
-    const before = _txs.length;
-    _txs = _txs.filter(t => t.id !== id);
-    if (_txs.length < before) { _saveTx(); return true; }
+    const n = _tx.length;
+    _tx = _tx.filter(t => t.id !== id);
+    if (_tx.length < n) { _sTx(); return true; }
     return false;
   }
 
-  function clearAll() {
-    _txs = [];
-    _saveTx();
-  }
+  function clearAll() { _tx = []; _sTx(); }
 
-  // ── Computed ──
-  function getByMonth(year, month) {
-    return _txs.filter(t => {
-      const d = _parseDate(t.date);
-      return d && d.getFullYear() === year && d.getMonth() === month;
-    });
+  /* ── Computed ── */
+  function getByMonth(y, m) {
+    return _tx.filter(t => { const d = parseDate(t.date); return d && d.getFullYear()===y && d.getMonth()===m; });
   }
-
-  function getThisMonth() {
-    const n = new Date();
-    return getByMonth(n.getFullYear(), n.getMonth());
-  }
+  function getThisMonth() { const n=new Date(); return getByMonth(n.getFullYear(), n.getMonth()); }
+  function getPrevMonth()  { const n=new Date(), m=n.getMonth()-1; return m<0 ? getByMonth(n.getFullYear()-1,11) : getByMonth(n.getFullYear(),m); }
 
   function sumType(list, type) {
-    return list
-      .filter(t => t.type === type)
-      .reduce((s, t) => s + (Number(t.amount) || 0), 0);
+    if (!Array.isArray(list)) return 0;
+    return list.filter(t=>t.type===type).reduce((s,t)=>s+(Math.abs(Number(t.amount))||0),0);
   }
 
-  function totalBalance() {
-    return sumType(_txs, 'income') - sumType(_txs, 'expense');
-  }
+  function totalBalance() { return sumType(_tx,'income') - sumType(_tx,'expense'); }
 
   function spendByCategory(list) {
-    const map = {};
-    list.filter(t => t.type === 'expense').forEach(t => {
-      map[t.category] = (map[t.category] || 0) + (Number(t.amount) || 0);
-    });
-    return map;
+    if (!Array.isArray(list)) return {};
+    const m={};
+    list.filter(t=>t.type==='expense').forEach(t=>{ m[t.category]=(m[t.category]||0)+(Math.abs(Number(t.amount))||0); });
+    return m;
   }
 
   function incomeByCategory(list) {
-    const map = {};
-    list.filter(t => t.type === 'income').forEach(t => {
-      map[t.category] = (map[t.category] || 0) + (Number(t.amount) || 0);
-    });
-    return map;
+    if (!Array.isArray(list)) return {};
+    const m={};
+    list.filter(t=>t.type==='income').forEach(t=>{ m[t.category]=(m[t.category]||0)+(Math.abs(Number(t.amount))||0); });
+    return m;
   }
 
   function last7Days() {
-    const rows = [];
-    for (let i = 6; i >= 0; i--) {
-      const d  = new Date();
-      d.setDate(d.getDate() - i);
-      const ds = _isoDate(d);
-      const txs = _txs.filter(t => t.date === ds);
-      rows.push({
-        date:  ds,
-        label: d.toLocaleDateString('en', { weekday: 'short' }),
-        inc:   sumType(txs, 'income'),
-        exp:   sumType(txs, 'expense'),
-      });
-    }
-    return rows;
+    return Array.from({length:7},(_,i)=>{
+      const d=new Date(); d.setDate(d.getDate()-(6-i));
+      const ds=isoDate(d), day=_tx.filter(t=>t.date===ds);
+      return { date:ds, label:d.toLocaleDateString('en',{weekday:'short'}), inc:sumType(day,'income'), exp:sumType(day,'expense') };
+    });
   }
 
   function last6Months() {
-    const rows = [];
-    for (let i = 5; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(1);
-      d.setMonth(d.getMonth() - i);
-      const list = getByMonth(d.getFullYear(), d.getMonth());
-      rows.push({
-        label: d.toLocaleString('default', { month: 'short' }),
-        year:  d.getFullYear(),
-        month: d.getMonth(),
-        inc:   sumType(list, 'income'),
-        exp:   sumType(list, 'expense'),
-      });
+    return Array.from({length:6},(_,i)=>{
+      const d=new Date(); d.setDate(1); d.setMonth(d.getMonth()-(5-i));
+      const list=getByMonth(d.getFullYear(),d.getMonth());
+      return { label:d.toLocaleString('default',{month:'short'}), year:d.getFullYear(), month:d.getMonth(), inc:sumType(list,'income'), exp:sumType(list,'expense') };
+    });
+  }
+
+  function avgDailyExpense() { const e=sumType(getThisMonth(),'expense'), d=new Date().getDate(); return d>0?e/d:0; }
+
+  // Month-over-month change % 
+  function momChange(type) {
+    const cur  = sumType(getThisMonth(), type);
+    const prev = sumType(getPrevMonth(), type);
+    if (prev === 0) return cur > 0 ? 100 : 0;
+    return Math.round((cur - prev) / prev * 100);
+  }
+
+  // Spending streak (consecutive days with expense entries)
+  function expenseStreak() {
+    let streak=0, d=new Date();
+    while(true) {
+      const ds=isoDate(d);
+      if (!_tx.some(t=>t.date===ds&&t.type==='expense')) break;
+      streak++; d.setDate(d.getDate()-1);
+      if(streak>365) break;
     }
-    return rows;
+    return streak;
   }
 
-  function averageDailyExpense() {
-    const monthly = getThisMonth();
-    const exp = sumType(monthly, 'expense');
-    return exp / new Date().getDate();
+  // 52-week spending heatmap data
+  function heatmapData() {
+    const weeks=[];
+    const today=new Date();
+    for(let w=51; w>=0; w--) {
+      const days=[];
+      for(let d=6; d>=0; d--) {
+        const dt=new Date(today);
+        dt.setDate(dt.getDate() - (w*7+d));
+        const ds=isoDate(dt);
+        const exp=_tx.filter(t=>t.date===ds&&t.type==='expense').reduce((s,t)=>s+Number(t.amount),0);
+        days.push({ date:ds, exp });
+      }
+      weeks.push(days);
+    }
+    // Calculate heat level
+    const vals=weeks.flat().map(x=>x.exp).filter(x=>x>0);
+    const p25=_pct(vals,.25), p50=_pct(vals,.5), p75=_pct(vals,.75);
+    return weeks.map(w=>w.map(d=>({
+      ...d,
+      level: d.exp===0 ? 0 : d.exp<=p25 ? 1 : d.exp<=p50 ? 2 : d.exp<=p75 ? 3 : 4
+    })));
   }
 
-  // ══════════════════════════════════════════
-  // BUDGETS API
-  // ══════════════════════════════════════════
-
-  function getBudgets() { return { ..._budgets }; }
-
-  function setBudget(cat, limit) {
-    _budgets[cat] = Math.abs(parseFloat(limit) || 0);
-    _saveBudgets();
+  function _pct(arr, p) {
+    if (!arr.length) return 0;
+    const s=[...arr].sort((a,b)=>a-b);
+    return s[Math.floor(s.length*p)] || 0;
   }
 
-  function deleteBudget(cat) {
-    delete _budgets[cat];
-    _saveBudgets();
+  /* ═══════════════════════
+     RECURRING
+  ═══════════════════════ */
+  function getRecurring()  { return [..._rec]; }
+
+  function addRecurring(data) {
+    const r = {
+      id:       uid(),
+      type:     data.type==='income'?'income':'expense',
+      desc:     String(data.desc??'').trim().slice(0,100),
+      amount:   Math.max(0,parseFloat(data.amount)||0),
+      category: String(data.category??'other'),
+      freq:     data.freq||'monthly',  // weekly | monthly | yearly
+      nextDate: String(data.nextDate??todayISO()),
+      active:   true,
+      createdAt: Date.now(),
+    };
+    if(!r.desc||r.amount<=0) return null;
+    _rec.unshift(r);
+    _sRec();
+    return r;
   }
 
-  // ══════════════════════════════════════════
-  // SETTINGS API
-  // ══════════════════════════════════════════
-
-  function getSettings()      { return { ..._settings }; }
-  function getSetting(key)    { return _settings[key]; }
-  function updateSettings(s)  {
-    _settings = { ..._settings, ...s };
-    _saveSettings();
-    _dispatchEvent('cf:settings_changed');
+  function toggleRecurring(id) {
+    const r=_rec.find(r=>r.id===id);
+    if(r){ r.active=!r.active; _sRec(); return r.active; }
+    return null;
   }
 
-  // ══════════════════════════════════════════
-  // FORMAT HELPERS
-  // ══════════════════════════════════════════
+  function deleteRecurring(id) {
+    _rec=_rec.filter(r=>r.id!==id);
+    _sRec();
+  }
 
+  function applyDueRecurring() {
+    const today=todayISO();
+    let applied=0;
+    _rec.filter(r=>r.active&&r.nextDate<=today).forEach(r=>{
+      add({ type:r.type, desc:r.desc, amount:r.amount, category:r.category, date:today, note:'Auto: '+r.freq, recurId:r.id });
+      // Advance next date
+      const d=parseDate(r.nextDate)||new Date();
+      if(r.freq==='weekly')  d.setDate(d.getDate()+7);
+      else if(r.freq==='monthly') d.setMonth(d.getMonth()+1);
+      else if(r.freq==='yearly')  d.setFullYear(d.getFullYear()+1);
+      r.nextDate=isoDate(d);
+      applied++;
+    });
+    if(applied) _sRec();
+    return applied;
+  }
+
+  function getDueRecurring() {
+    const today=todayISO();
+    return _rec.filter(r=>r.active&&r.nextDate<=today);
+  }
+
+  /* ═══════════════════════
+     SAVINGS GOALS
+  ═══════════════════════ */
+  function getGoals()  { return [..._goals]; }
+
+  function addGoal(data) {
+    const g = {
+      id:       uid(),
+      name:     String(data.name??'').trim().slice(0,60),
+      emoji:    data.emoji||'🎯',
+      target:   Math.max(0,parseFloat(data.target)||0),
+      saved:    Math.max(0,parseFloat(data.saved)||0),
+      deadline: data.deadline||'',
+      createdAt:Date.now(),
+    };
+    if(!g.name||g.target<=0) return null;
+    _goals.unshift(g);
+    _sGoa();
+    return g;
+  }
+
+  function updateGoalSaved(id, amount) {
+    const g=_goals.find(g=>g.id===id);
+    if(!g) return false;
+    g.saved=Math.max(0,Math.min(g.target,parseFloat(amount)||0));
+    _sGoa();
+    return true;
+  }
+
+  function deleteGoal(id) { _goals=_goals.filter(g=>g.id!==id); _sGoa(); }
+
+  /* ═══════════════════════
+     BUDGETS
+  ═══════════════════════ */
+  function getBudgets()          { return {..._bud}; }
+  function setBudget(cat, limit) { _bud[cat]=Math.max(0,parseFloat(limit)||0); _sBud(); }
+  function deleteBudget(cat)     { delete _bud[cat]; _sBud(); }
+
+  /* ═══════════════════════
+     SETTINGS
+  ═══════════════════════ */
+  function getSettings()    { return {..._set}; }
+  function getSetting(k)    { return _set[k]; }
+  function updateSettings(s){ _set={..._set,...s}; _sSet(); }
+
+  /* ═══════════════════════
+     FORMAT
+  ═══════════════════════ */
   function fmt(n) {
-    const num = Number(n) || 0;
-    return _settings.currency + num.toLocaleString('en', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+    const num=Number(n)||0, c=_set.currency;
+    return c + num.toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2});
   }
 
-  function fmtDate(dateStr) {
-    const d = _parseDate(dateStr);
-    if (!d) return dateStr;
-    return d.toLocaleDateString('en-BD', {
-      day: '2-digit', month: 'short', year: 'numeric',
-    });
+  function fmtDate(s) {
+    const d=parseDate(s);
+    if(!d) return String(s||'');
+    return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
   }
 
-  function fmtDateShort(dateStr) {
-    const d = _parseDate(dateStr);
-    if (!d) return dateStr;
-    return d.toLocaleDateString('en-BD', { day: '2-digit', month: 'short' });
+  function fmtDateShort(s) {
+    const d=parseDate(s);
+    if(!d) return '';
+    return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
   }
 
-  // ══════════════════════════════════════════
-  // EXPORT / IMPORT
-  // ══════════════════════════════════════════
+  /* ═══════════════════════
+     EXPORT / IMPORT
+  ═══════════════════════ */
+  function exportCSV() {
+    const rows=[..._tx].sort((a,b)=>b.date.localeCompare(a.date))
+      .map(t=>[t.date,t.type,`"${(t.desc||'').replace(/"/g,'""')}"`,t.category,t.amount,`"${(t.note||'').replace(/"/g,'""')}"`].join(','));
+    return ['Date,Type,Description,Category,Amount,Note',...rows].join('\n');
+  }
 
   function exportJSON() {
-    return JSON.stringify({
-      version:      VERSION,
-      exported_at:  new Date().toISOString(),
-      transactions: _txs,
-      budgets:      _budgets,
-      settings:     _settings,
-    }, null, 2);
+    return JSON.stringify({ version:VER, exported:new Date().toISOString(), transactions:_tx, budgets:_bud, recurring:_rec, goals:_goals }, null, 2);
   }
 
-  function exportCSV() {
-    const header = 'Date,Type,Description,Category,Amount,Note';
-    const rows   = [..._txs]
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .map(t =>
-        [
-          t.date,
-          t.type,
-          `"${(t.desc || '').replace(/"/g, '""')}"`,
-          t.category,
-          t.amount,
-          `"${(t.note || '').replace(/"/g, '""')}"`,
-        ].join(',')
-      );
-    return [header, ...rows].join('\n');
-  }
-
-  function importJSON(jsonStr) {
+  function importJSON(str) {
     try {
-      const data = JSON.parse(jsonStr);
-      if (Array.isArray(data.transactions)) {
-        _txs = data.transactions;
-        _saveTx();
-      }
-      if (data.budgets && typeof data.budgets === 'object') {
-        _budgets = data.budgets;
-        _saveBudgets();
-      }
+      const d=JSON.parse(str);
+      if(Array.isArray(d.transactions)) { _tx=d.transactions.filter(t=>t&&t.id&&t.desc); _sTx(); }
+      if(d.budgets&&typeof d.budgets==='object'&&!Array.isArray(d.budgets)) { _bud=d.budgets; _sBud(); }
+      if(Array.isArray(d.recurring)) { _rec=d.recurring; _sRec(); }
+      if(Array.isArray(d.goals))     { _goals=d.goals;   _sGoa(); }
       return true;
-    } catch (e) {
-      console.error('[Store] import failed', e);
-      return false;
-    }
+    } catch { return false; }
   }
 
-  // ── Storage usage ──
   function storageInfo() {
     try {
-      const txSize  = (localStorage.getItem(KEYS.transactions) || '').length;
-      const bSize   = (localStorage.getItem(KEYS.budgets) || '').length;
-      const sSize   = (localStorage.getItem(KEYS.settings) || '').length;
-      const total   = txSize + bSize + sSize;
-      return {
-        transactions: _bytesToKB(txSize),
-        budgets:      _bytesToKB(bSize),
-        settings:     _bytesToKB(sSize),
-        total:        _bytesToKB(total),
-        totalBytes:   total,
-      };
-    } catch { return null; }
+      const bytes=Object.values(KEY).reduce((s,k)=>s+(localStorage.getItem(k)||'').length,0);
+      return { total:(bytes/1024).toFixed(1)+' KB', count:_tx.length, bytes };
+    } catch { return { total:'—', count:0 }; }
   }
 
-  // ── Private helpers ──
-  function _parseDate(str) {
-    if (!str) return null;
-    const d = new Date(str + 'T00:00:00');
-    return isNaN(d) ? null : d;
-  }
-  function _isoDate(d) {
-    return d.toISOString().split('T')[0];
-  }
-  function _todayISO() {
-    return _isoDate(new Date());
-  }
-  function _bytesToKB(bytes) {
-    return (bytes / 1024).toFixed(2) + ' KB';
-  }
-
-  // ── Public API ──
   return Object.freeze({
     // Transactions
     getAll, getById, add, update, remove, clearAll,
-    getByMonth, getThisMonth,
+    getByMonth, getThisMonth, getPrevMonth,
     sumType, totalBalance, spendByCategory, incomeByCategory,
-    last7Days, last6Months, averageDailyExpense,
+    last7Days, last6Months, avgDailyExpense,
+    momChange, expenseStreak, heatmapData,
+    // Recurring
+    getRecurring, addRecurring, toggleRecurring, deleteRecurring,
+    applyDueRecurring, getDueRecurring,
+    // Goals
+    getGoals, addGoal, updateGoalSaved, deleteGoal,
     // Budgets
     getBudgets, setBudget, deleteBudget,
     // Settings
     getSettings, getSetting, updateSettings,
     // Format
     fmt, fmtDate, fmtDateShort,
-    // Export/Import
-    exportJSON, exportCSV, importJSON,
-    storageInfo,
-    uid,
-    todayISO: () => _isoDate(new Date()),
+    // IO
+    exportCSV, exportJSON, importJSON, storageInfo,
+    // Helpers
+    uid, todayISO, isoDate, parseDate,
   });
 })();
 

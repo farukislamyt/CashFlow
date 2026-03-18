@@ -1,815 +1,485 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-
-  <!-- ── SEO ── -->
-  <title>CashFlow — Personal Cash Management App</title>
-  <meta name="description" content="CashFlow is a free, offline personal finance tracker. Track income, expenses, budgets and get insights — all stored securely in your browser." />
-  <meta name="keywords" content="cash management, personal finance, budget tracker, expense tracker, income tracker, money management" />
-  <meta name="author" content="Faruk Islam" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://farukislamyt.github.io/CashFlow/" />
-
-  <!-- ── Open Graph ── -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:title"       content="CashFlow — Personal Cash Management" />
-  <meta property="og:description" content="Track income, expenses and budgets offline. Free and private." />
-  <meta property="og:url"         content="https://farukislamyt.github.io/CashFlow/" />
-  <meta property="og:site_name"   content="CashFlow" />
-
-  <!-- ── Twitter Card ── -->
-  <meta name="twitter:card"        content="summary" />
-  <meta name="twitter:title"       content="CashFlow — Personal Cash Management" />
-  <meta name="twitter:description" content="Free offline personal finance tracker." />
-  <meta name="twitter:creator"     content="@farukislamyt" />
-
-  <!-- ── PWA / Theme ── -->
-  <meta name="theme-color" content="#0d1117" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="CashFlow" />
-
-  <!-- ── Favicon ── -->
-  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
-  <link rel="shortcut icon" href="assets/icons/favicon.svg" />
-
-  <!-- ── Fonts ── -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet" />
-
-  <!-- ── Styles ── -->
-  <link rel="stylesheet" href="assets/css/tokens.css" />
-  <link rel="stylesheet" href="assets/css/base.css" />
-  <link rel="stylesheet" href="assets/css/nav.css" />
-  <link rel="stylesheet" href="assets/css/components.css" />
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "CashFlow",
-    "description": "Personal cash management and budget tracking app",
-    "url": "https://farukislamyt.github.io/CashFlow/",
-    "applicationCategory": "FinanceApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Person", "name": "Faruk Islam" }
-  }
-  </script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<!-- SEO -->
+<title>CashFlow — Personal Cash Manager</title>
+<meta name="description" content="Track income, expenses and budgets. Offline-first, private, free. Works as an installable PWA."/>
+<meta name="keywords" content="cash management,personal finance,budget tracker,expense tracker,money app,offline finance,PWA"/>
+<meta name="author" content="Faruk Islam"/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://farukislamyt.github.io/CashFlow/"/>
+<!-- OG -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="CashFlow — Personal Cash Manager"/>
+<meta property="og:description" content="Free offline personal finance tracker. No account. No data shared."/>
+<meta property="og:url" content="https://farukislamyt.github.io/CashFlow/"/>
+<meta property="og:image" content="https://farukislamyt.github.io/CashFlow/assets/icons/icon-512.png"/>
+<!-- Twitter -->
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CashFlow — Personal Cash Manager"/>
+<meta name="twitter:creator" content="@farukislamyt"/>
+<!-- PWA -->
+<meta name="theme-color" content="#07090f"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="CashFlow"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png"/>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<!-- Styles -->
+<link rel="stylesheet" href="assets/css/tokens.css"/>
+<link rel="stylesheet" href="assets/css/base.css"/>
+<link rel="stylesheet" href="assets/css/nav.css"/>
+<link rel="stylesheet" href="assets/css/components.css"/>
+<!-- Structured Data -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CashFlow","url":"https://farukislamyt.github.io/CashFlow/","description":"Personal cash management PWA","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Faruk Islam","url":"https://github.com/farukislamyt"}}</script>
 </head>
-
 <body>
-<!-- ══════════════════════════════════════
-     MOBILE: TOP BAR
-══════════════════════════════════════ -->
-<header class="topbar" role="banner" aria-label="App header">
-  <div class="topbar-logo">
-    <span class="gem">💸</span>
-    Cash<em>Flow</em>
-  </div>
-  <span id="topbar-title" style="font-size:14px;font-weight:600;color:var(--t-secondary);display:none"></span>
+
+<!-- Offline bar -->
+<div class="offline-bar" id="offline-bar" role="alert" aria-live="polite">📡 You're offline — CashFlow still works fully. Your data is saved locally.</div>
+
+<!-- Mobile Topbar -->
+<header class="topbar" role="banner">
+  <div class="topbar-logo"><span>💸</span> Cash<em>Flow</em></div>
+  <span class="topbar-title" id="topbar-title" aria-live="polite"></span>
   <div class="topbar-right">
-    <button class="topbar-add-btn" onclick="App.openAdd()" aria-label="Add transaction" title="Add transaction (Ctrl+K)">+</button>
+    <button class="fab" onclick="App.openAdd()" aria-label="Add transaction">+</button>
   </div>
 </header>
 
-<!-- ══════════════════════════════════════
-     APP SHELL
-══════════════════════════════════════ -->
 <div id="app">
+<!-- Sidebar mask -->
+<div class="sidebar-mask" id="sidebar-mask" onclick="App.toggleSidebar()" aria-hidden="true"></div>
 
-  <!-- ════════════════════════════════
-       DESKTOP SIDEBAR
-  ════════════════════════════════ -->
-  <aside class="sidebar" id="sidebar" role="complementary" aria-label="Main navigation">
-    <a class="sidebar-logo" href="#" onclick="App.goTo('dashboard');return false;" aria-label="CashFlow Home">
-      <div class="logo-gem" aria-hidden="true">💸</div>
-      <span class="logo-wordmark">Cash<em>Flow</em></span>
-    </a>
-
-    <nav class="sidebar-nav" role="navigation" aria-label="Pages">
-      <span class="nav-group-label">Menu</span>
-
-      <button class="nav-link active" data-page="dashboard"
-              onclick="App.goTo('dashboard')" aria-current="page">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
-          <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
-        </svg>
-        Dashboard
-      </button>
-
-      <button class="nav-link" data-page="history" onclick="App.goTo('history')">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-          <line x1="8" y1="18" x2="21" y2="18"/>
-          <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
-          <line x1="3" y1="18" x2="3.01" y2="18"/>
-        </svg>
-        History
-      </button>
-
-      <button class="nav-link" data-page="budget" onclick="App.goTo('budget')">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/>
-        </svg>
-        Budget
-        <span class="nav-badge" id="nav-budget-badge"></span>
-      </button>
-
-      <button class="nav-link" data-page="reports" onclick="App.goTo('reports')">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-        </svg>
-        Reports
-      </button>
-
-      <button class="nav-link" data-page="settings" onclick="App.goTo('settings')">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-        </svg>
-        Settings
-      </button>
-
-      <div style="margin-top:auto;padding-top:var(--s5)">
-        <button class="nav-link" onclick="App.openAdd()" style="color:var(--accent)">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
-          </svg>
-          Add Transaction
-        </button>
-      </div>
-    </nav>
-
-    <div class="sidebar-footer">
-      <div class="sidebar-user">
-        <div class="user-avatar" aria-hidden="true">FI</div>
-        <div>
-          <div class="user-name" id="sidebar-username">My Account</div>
-          <div class="user-role">Personal Finance</div>
-        </div>
-      </div>
+<!-- ═════ SIDEBAR ═════ -->
+<aside class="sidebar" id="sidebar" aria-label="Main navigation">
+  <a class="sidebar-logo" href="#" onclick="App.goTo('dashboard');return false" aria-label="CashFlow home">
+    <div class="logo-gem" aria-hidden="true">💸</div>
+    <span class="logo-wm">Cash<em>Flow</em></span>
+  </a>
+  <nav class="sidebar-nav" role="navigation">
+    <span class="nav-lbl" aria-hidden="true">Menu</span>
+    <button class="nav-link active" data-page="dashboard" onclick="App.goTo('dashboard')" aria-current="page">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Dashboard</button>
+    <button class="nav-link" data-page="history" onclick="App.goTo('history')" aria-current="false">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>History</button>
+    <button class="nav-link" data-page="budget" onclick="App.goTo('budget')" aria-current="false">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg>Budget
+      <span class="nav-badge" id="nav-bud-badge"></span></button>
+    <button class="nav-link" data-page="reports" onclick="App.goTo('reports')" aria-current="false">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Reports</button>
+    <button class="nav-link" data-page="settings" onclick="App.goTo('settings')" aria-current="false">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</button>
+    <div style="margin-top:var(--sp5)">
+      <button class="nav-link" onclick="App.openAdd()" style="color:var(--acc)" aria-label="Add transaction (Ctrl+K)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add Transaction</button>
     </div>
-  </aside>
-
-  <!-- ════════════════════════════════
-       MAIN CONTENT
-  ════════════════════════════════ -->
-  <main class="main" role="main" id="main">
-    <div class="main-inner">
-
-      <!-- ══════════════════════════
-           DASHBOARD
-      ══════════════════════════ -->
-      <section class="page active anim-fadeup" id="page-dashboard" aria-label="Dashboard">
-        <div class="page-header">
-          <div>
-            <div class="ph-eyebrow">Overview</div>
-            <h1 class="ph-title">My <em>Dashboard</em></h1>
-            <p class="ph-sub" id="d-month"></p>
-          </div>
-          <div class="ph-actions">
-            <button class="btn btn-ghost hide-mobile" onclick="App.exportCSV()" aria-label="Export CSV">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Export
-            </button>
-            <button class="btn btn-primary" onclick="App.openAdd()" aria-label="Add transaction">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Add
-            </button>
-          </div>
-        </div>
-
-        <!-- KPIs -->
-        <div class="kpi-grid">
-          <div class="kpi-card kc-balance anim-fadeup">
-            <div class="kpi-icon" aria-hidden="true">💰</div>
-            <div class="kpi-label">Net Balance</div>
-            <div class="kpi-value accent" id="d-balance">—</div>
-            <div class="kpi-meta">All-time</div>
-          </div>
-          <div class="kpi-card kc-income anim-fadeup anim-delay-1">
-            <div class="kpi-icon" aria-hidden="true">📈</div>
-            <div class="kpi-label">Income</div>
-            <div class="kpi-value positive" id="d-income">—</div>
-            <div class="kpi-meta">This month</div>
-          </div>
-          <div class="kpi-card kc-expense anim-fadeup anim-delay-2">
-            <div class="kpi-icon" aria-hidden="true">📉</div>
-            <div class="kpi-label">Expenses</div>
-            <div class="kpi-value negative" id="d-expense">—</div>
-            <div class="kpi-meta">This month</div>
-          </div>
-          <div class="kpi-card kc-neutral anim-fadeup anim-delay-3">
-            <div class="kpi-icon" aria-hidden="true">🎯</div>
-            <div class="kpi-label">Net This Month</div>
-            <div class="kpi-value blue" id="d-net">—</div>
-            <div class="kpi-meta"><span id="d-save-rate">0%</span> savings rate</div>
-          </div>
-        </div>
-
-        <!-- Grid -->
-        <div class="grid-2">
-          <!-- Transactions -->
-          <div class="panel anim-fadeup">
-            <div class="panel-head">
-              <h2 class="panel-title">Recent Transactions</h2>
-              <div style="display:flex;gap:var(--s3);align-items:center;flex-wrap:wrap">
-                <div class="tabs">
-                  <button class="tab active" onclick="App.setDashFilter('all',this)">All</button>
-                  <button class="tab" onclick="App.setDashFilter('income',this)">Income</button>
-                  <button class="tab" onclick="App.setDashFilter('expense',this)">Expense</button>
-                </div>
-                <button class="btn btn-ghost btn-sm hide-mobile" onclick="App.goTo('history')">View all →</button>
-              </div>
-            </div>
-            <div class="tx-scroll">
-              <table class="tx-table" aria-label="Recent transactions">
-                <thead>
-                  <tr>
-                    <th scope="col">Description</th>
-                    <th scope="col" class="hide-mobile">Category</th>
-                    <th scope="col" class="hide-mobile">Date</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col"><span class="sr-only">Actions</span></th>
-                  </tr>
-                </thead>
-                <tbody id="d-tx-body"></tbody>
-              </table>
-              <div class="empty" id="d-empty" style="display:none">
-                <div class="empty-emoji" aria-hidden="true">🪙</div>
-                <p>No transactions yet. Add your first one!</p>
-                <button class="btn btn-primary" onclick="App.openAdd()">+ Add Transaction</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right column -->
-          <div class="col-stack">
-            <!-- Quick Add -->
-            <div class="panel anim-fadeup anim-delay-1">
-              <div class="panel-head">
-                <h2 class="panel-title">Quick Add</h2>
-                <span style="font-size:10.5px;color:var(--t-muted)">Ctrl+K</span>
-              </div>
-              <div class="panel-body-sm">
-                <div class="type-toggle">
-                  <button class="type-btn income on" id="q-inc" onclick="App.setQuickType('income')" aria-pressed="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
-                    Income
-                  </button>
-                  <button class="type-btn expense" id="q-exp" onclick="App.setQuickType('expense')" aria-pressed="false">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-                    Expense
-                  </button>
-                </div>
-
-                <div style="margin-bottom:14px">
-                  <div class="amount-display">
-                    <span class="amount-currency" aria-hidden="true">৳</span>
-                    <input class="amount-input" type="number" id="q-amount" placeholder="0.00"
-                           min="0" step="0.01" aria-label="Amount in BDT" inputmode="decimal" />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="label" for="q-desc">Description</label>
-                  <input class="input" type="text" id="q-desc" placeholder="e.g. Grocery shopping…" maxlength="100" autocomplete="off" />
-                </div>
-                <div class="form-group">
-                  <label class="label" for="q-category">Category</label>
-                  <select class="select" id="q-category" aria-label="Category"></select>
-                </div>
-                <div class="form-group">
-                  <label class="label" for="q-date">Date</label>
-                  <input class="input" type="date" id="q-date" />
-                </div>
-                <button class="btn btn-primary btn-full" onclick="App.quickAdd()" style="margin-top:4px">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  Save Transaction
-                </button>
-              </div>
-            </div>
-
-            <!-- 7-day chart -->
-            <div class="panel anim-fadeup anim-delay-2">
-              <div class="panel-head">
-                <h2 class="panel-title">Last 7 Days</h2>
-              </div>
-              <div class="panel-body-sm">
-                <div id="d-chart" style="height:100px" aria-label="7-day bar chart"></div>
-                <div class="chart-legend">
-                  <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>Income</div>
-                  <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Expense</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ══════════════════════════
-           HISTORY
-      ══════════════════════════ -->
-      <section class="page anim-fadeup" id="page-history" aria-label="Transaction history">
-        <div class="page-header">
-          <div>
-            <div class="ph-eyebrow">Ledger</div>
-            <h1 class="ph-title">Transaction <em>History</em></h1>
-            <p class="ph-sub" id="h-count"></p>
-          </div>
-          <div class="ph-actions">
-            <div class="search-box hide-mobile">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input class="input search-input" type="search" id="hist-search" placeholder="Search…" aria-label="Search transactions" />
-            </div>
-            <button class="btn btn-ghost hide-mobile" onclick="App.exportCSV()">⬇ CSV</button>
-            <button class="btn btn-primary" onclick="App.openAdd()">+ Add</button>
-          </div>
-        </div>
-
-        <!-- Summary -->
-        <div class="kpi-grid" style="margin-bottom:var(--s5)">
-          <div class="kpi-card kc-income" style="padding:var(--s4) var(--s5)">
-            <div class="kpi-label">Total Income</div>
-            <div class="kpi-value positive" style="font-size:18px" id="h-total-inc">—</div>
-          </div>
-          <div class="kpi-card kc-expense" style="padding:var(--s4) var(--s5)">
-            <div class="kpi-label">Total Expenses</div>
-            <div class="kpi-value negative" style="font-size:18px" id="h-total-exp">—</div>
-          </div>
-          <div class="kpi-card kc-balance" style="padding:var(--s4) var(--s5)">
-            <div class="kpi-label">Net Balance</div>
-            <div class="kpi-value accent" style="font-size:18px" id="h-total-bal">—</div>
-          </div>
-        </div>
-
-        <!-- Search (mobile) -->
-        <div class="search-box" style="max-width:100%;margin-bottom:var(--s4);display:none" id="hist-search-mobile-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="input search-input" type="search" placeholder="Search…" oninput="document.getElementById('hist-search').value=this.value;App.setHistFilter('all')" aria-label="Search transactions" style="width:100%" />
-        </div>
-
-        <div class="panel">
-          <div class="panel-head">
-            <h2 class="panel-title">All Transactions</h2>
-            <div class="tabs">
-              <button class="tab active" onclick="App.setHistFilter('all',this)">All</button>
-              <button class="tab" onclick="App.setHistFilter('income',this)">Income</button>
-              <button class="tab" onclick="App.setHistFilter('expense',this)">Expense</button>
-            </div>
-          </div>
-          <div class="tx-scroll">
-            <table class="tx-table" aria-label="All transactions">
-              <thead>
-                <tr>
-                  <th scope="col">Description</th>
-                  <th scope="col" class="hide-mobile">Category</th>
-                  <th scope="col" class="hide-mobile">Date</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col"><span class="sr-only">Actions</span></th>
-                </tr>
-              </thead>
-              <tbody id="h-tx-body"></tbody>
-            </table>
-            <div class="empty" id="h-empty" style="display:none">
-              <div class="empty-emoji" aria-hidden="true">🔍</div>
-              <p>No transactions found.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ══════════════════════════
-           BUDGET
-      ══════════════════════════ -->
-      <section class="page anim-fadeup" id="page-budget" aria-label="Budget planner">
-        <div class="page-header">
-          <div>
-            <div class="ph-eyebrow">Planning</div>
-            <h1 class="ph-title">Budget <em>Planner</em></h1>
-            <p class="ph-sub">Monthly spending limits by category</p>
-          </div>
-          <div class="ph-actions">
-            <button class="btn btn-primary" onclick="App.openBudgetModal()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Add Budget
-            </button>
-          </div>
-        </div>
-
-        <!-- KPIs -->
-        <div class="kpi-grid">
-          <div class="kpi-card kc-balance anim-fadeup">
-            <div class="kpi-icon" aria-hidden="true">🎯</div>
-            <div class="kpi-label">Total Budget</div>
-            <div class="kpi-value accent" id="b-total">—</div>
-            <div class="kpi-meta">Monthly limit</div>
-          </div>
-          <div class="kpi-card kc-expense anim-fadeup anim-delay-1">
-            <div class="kpi-icon" aria-hidden="true">💸</div>
-            <div class="kpi-label">Spent</div>
-            <div class="kpi-value negative" id="b-spent">—</div>
-            <div class="kpi-meta">This month</div>
-          </div>
-          <div class="kpi-card kc-income anim-fadeup anim-delay-2">
-            <div class="kpi-icon" aria-hidden="true">✅</div>
-            <div class="kpi-label">Remaining</div>
-            <div class="kpi-value positive" id="b-remaining">—</div>
-            <div class="kpi-meta">Available</div>
-          </div>
-        </div>
-
-        <!-- Overall progress -->
-        <div class="panel" style="margin-bottom:var(--s6)">
-          <div class="panel-head">
-            <h2 class="panel-title">Overall Progress</h2>
-            <span id="b-overall-pct" style="font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--t-secondary)">0%</span>
-          </div>
-          <div class="panel-body-sm">
-            <div class="progress-track" style="height:10px">
-              <div class="progress-fill safe" id="b-overall-fill" style="width:0%"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Category budgets -->
-        <div class="panel">
-          <div class="panel-head">
-            <h2 class="panel-title">Category Budgets</h2>
-            <button class="btn btn-ghost btn-sm" onclick="App.openBudgetModal()">+ Add</button>
-          </div>
-          <div class="panel-body">
-            <div id="b-list"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ══════════════════════════
-           REPORTS
-      ══════════════════════════ -->
-      <section class="page anim-fadeup" id="page-reports" aria-label="Financial reports">
-        <div class="page-header">
-          <div>
-            <div class="ph-eyebrow">Insights</div>
-            <h1 class="ph-title">Financial <em>Reports</em></h1>
-            <p class="ph-sub">Trends, patterns and analytics</p>
-          </div>
-          <div class="ph-actions">
-            <button class="btn btn-ghost hide-mobile" onclick="App.exportCSV()">⬇ Export CSV</button>
-          </div>
-        </div>
-
-        <!-- KPIs -->
-        <div class="kpi-grid">
-          <div class="kpi-card kc-expense anim-fadeup">
-            <div class="kpi-icon" aria-hidden="true">📅</div>
-            <div class="kpi-label">Avg Daily Spend</div>
-            <div class="kpi-value negative" id="r-avg-daily">—</div>
-            <div class="kpi-meta">This month</div>
-          </div>
-          <div class="kpi-card kc-income anim-fadeup anim-delay-1">
-            <div class="kpi-icon" aria-hidden="true">📊</div>
-            <div class="kpi-label">Savings Rate</div>
-            <div class="kpi-value positive" id="r-save-rate">—</div>
-            <div class="kpi-meta">Income vs Expense</div>
-          </div>
-          <div class="kpi-card kc-balance anim-fadeup anim-delay-2">
-            <div class="kpi-icon" aria-hidden="true">🏆</div>
-            <div class="kpi-label">Top Expense</div>
-            <div class="kpi-value accent" style="font-size:16px" id="r-top-cat">—</div>
-            <div class="kpi-meta" id="r-top-amt"></div>
-          </div>
-          <div class="kpi-card kc-purple anim-fadeup anim-delay-3">
-            <div class="kpi-icon" aria-hidden="true">💎</div>
-            <div class="kpi-label">Net Worth</div>
-            <div class="kpi-value purple" id="r-net-worth">—</div>
-            <div class="kpi-meta">All-time balance</div>
-          </div>
-        </div>
-
-        <!-- Charts grid -->
-        <div class="grid-2">
-          <div class="panel">
-            <div class="panel-head">
-              <h2 class="panel-title">6-Month Overview</h2>
-            </div>
-            <div class="panel-body">
-              <div id="r-monthly-chart" style="height:150px" aria-label="6 month bar chart"></div>
-              <div class="chart-legend">
-                <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>Income</div>
-                <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Expense</div>
-              </div>
-            </div>
-          </div>
-          <div class="panel">
-            <div class="panel-head">
-              <h2 class="panel-title">Expense Breakdown</h2>
-            </div>
-            <div class="panel-body">
-              <div id="r-donut"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ══════════════════════════
-           SETTINGS
-      ══════════════════════════ -->
-      <section class="page anim-fadeup" id="page-settings" aria-label="Settings">
-        <div class="page-header">
-          <div>
-            <div class="ph-eyebrow">Preferences</div>
-            <h1 class="ph-title">App <em>Settings</em></h1>
-          </div>
-        </div>
-
-        <!-- Profile -->
-        <div class="panel" style="margin-bottom:var(--s6)">
-          <div class="panel-head"><h2 class="panel-title">Profile</h2></div>
-          <div class="panel-body">
-            <div class="form-group">
-              <label class="label" for="s-name">Your Name</label>
-              <input class="input" type="text" id="s-name" placeholder="e.g. Faruk Islam" maxlength="50" />
-            </div>
-            <div class="form-group">
-              <label class="label" for="s-currency">Currency Symbol</label>
-              <select class="select" id="s-currency" aria-label="Currency">
-                <option value="৳">৳ — Bangladeshi Taka (BDT)</option>
-                <option value="$">$ — US Dollar (USD)</option>
-                <option value="€">€ — Euro (EUR)</option>
-                <option value="£">£ — British Pound (GBP)</option>
-                <option value="₹">₹ — Indian Rupee (INR)</option>
-                <option value="¥">¥ — Japanese Yen (JPY)</option>
-                <option value="₩">₩ — Korean Won (KRW)</option>
-                <option value="﷼">﷼ — Saudi Riyal (SAR)</option>
-              </select>
-            </div>
-            <button class="btn btn-primary" onclick="App.saveSettings()">Save Changes</button>
-          </div>
-        </div>
-
-        <!-- Preferences -->
-        <div class="panel" style="margin-bottom:var(--s6)">
-          <div class="panel-head"><h2 class="panel-title">Preferences</h2></div>
-          <div class="panel-body" style="padding-top:var(--s3)">
-            <div class="settings-row">
-              <div class="settings-info">
-                <div class="s-title">Notifications</div>
-                <div class="s-desc">Budget alerts when nearing limits</div>
-              </div>
-              <button class="toggle on" id="toggle-notif" onclick="App.toggleSetting('notifications',this)" aria-label="Toggle notifications" role="switch" aria-checked="true"></button>
-            </div>
-            <div class="settings-row">
-              <div class="settings-info">
-                <div class="s-title">Compact View</div>
-                <div class="s-desc">Denser table rows in transaction lists</div>
-              </div>
-              <button class="toggle" id="toggle-compact" onclick="App.toggleSetting('compactView',this)" aria-label="Toggle compact view" role="switch" aria-checked="false"></button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Data -->
-        <div class="panel" style="margin-bottom:var(--s6)">
-          <div class="panel-head"><h2 class="panel-title">Data Management</h2></div>
-          <div class="panel-body">
-            <div style="font-size:12px;color:var(--t-muted);margin-bottom:var(--s5)">
-              All data is stored locally in your browser using localStorage. Nothing is sent to any server.
-              <br><strong style="color:var(--t-secondary)">Storage used: <span id="s-storage-size">—</span></strong>
-              &nbsp;·&nbsp; <span id="s-tx-count">0 transactions</span>
-            </div>
-            <div style="display:flex;gap:var(--s3);flex-wrap:wrap">
-              <button class="btn btn-ghost" onclick="App.exportCSV()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Export CSV
-              </button>
-              <button class="btn btn-ghost" onclick="App.exportJSON()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                Backup JSON
-              </button>
-              <button class="btn btn-ghost" onclick="App.importJSON()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                Import JSON
-              </button>
-              <button class="btn btn-danger" onclick="App.clearAllData()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-                Clear All Data
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- About -->
-        <div class="panel">
-          <div class="panel-head"><h2 class="panel-title">About</h2></div>
-          <div class="panel-body">
-            <div style="font-size:13.5px;color:var(--t-secondary);line-height:1.7">
-              <strong style="color:var(--t-primary)">CashFlow v2.0</strong> — Personal Cash Management<br/>
-              Built with plain HTML, CSS & JavaScript. No frameworks, no backend, no tracking.<br/>
-              <span style="color:var(--t-muted)">
-                Data stays 100% in your browser. Works offline.
-                <br>© 2025 <a href="https://github.com/farukislamyt" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline">Faruk Islam</a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </div><!-- /main-inner -->
-  </main>
-</div><!-- /app -->
-
-<!-- ══════════════════════════════════════
-     MOBILE BOTTOM NAV
-══════════════════════════════════════ -->
-<nav class="bottomnav" role="navigation" aria-label="Bottom navigation">
-  <div class="bottomnav-inner">
-    <button class="bn-item active" data-page="dashboard" onclick="App.goTo('dashboard')" aria-label="Dashboard">
-      <div class="bn-icon-wrap">
-        <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
-          <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
-        </svg>
-      </div>
-      Home
-    </button>
-
-    <button class="bn-item" data-page="history" onclick="App.goTo('history')" aria-label="History">
-      <div class="bn-icon-wrap">
-        <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-          <line x1="8" y1="18" x2="21" y2="18"/>
-          <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
-          <line x1="3" y1="18" x2="3.01" y2="18"/>
-        </svg>
-      </div>
-      History
-    </button>
-
-    <button class="bn-item" data-page="budget" onclick="App.goTo('budget')" aria-label="Budget">
-      <div class="bn-icon-wrap">
-        <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/>
-        </svg>
-        <span class="bn-dot" id="bn-budget-dot" aria-hidden="true"></span>
-      </div>
-      Budget
-    </button>
-
-    <button class="bn-item" data-page="reports" onclick="App.goTo('reports')" aria-label="Reports">
-      <div class="bn-icon-wrap">
-        <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-        </svg>
-      </div>
-      Reports
-    </button>
-
-    <button class="bn-item" data-page="settings" onclick="App.goTo('settings')" aria-label="Settings">
-      <div class="bn-icon-wrap">
-        <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-        </svg>
-      </div>
-      Settings
-    </button>
+  </nav>
+  <div class="update-strip" id="update-strip" role="alert">
+    <strong>🔄 Update Available</strong>
+    <span style="color:var(--t1);font-size:11.5px">A new version is ready.</span>
+    <button id="update-btn">Reload &amp; Update</button>
   </div>
-</nav>
-
-<!-- ══════════════════════════════════════
-     MODALS
-══════════════════════════════════════ -->
-
-<!-- Transaction Modal -->
-<div class="modal-overlay" id="tx-modal" onclick="Modal.onBg(event,'tx-modal')"
-     role="dialog" aria-modal="true" aria-labelledby="m-title">
-  <div class="modal">
-    <div class="modal-head">
-      <span class="modal-title" id="m-title">Add Transaction</span>
-      <button class="modal-close" onclick="Modal.close('tx-modal')" aria-label="Close modal">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="type-toggle">
-        <button class="type-btn income on" id="m-inc" onclick="App.setModalType('income')" aria-pressed="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
-          Income
-        </button>
-        <button class="type-btn expense" id="m-exp" onclick="App.setModalType('expense')" aria-pressed="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          Expense
-        </button>
-      </div>
-      <div style="margin-bottom:14px">
-        <label class="label" for="m-amount">Amount *</label>
-        <div class="amount-display">
-          <span class="amount-currency" aria-hidden="true">৳</span>
-          <input class="amount-input" type="number" id="m-amount" placeholder="0.00"
-                 min="0" step="0.01" aria-label="Amount" inputmode="decimal" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="label" for="m-desc">Description *</label>
-        <input class="input" type="text" id="m-desc" placeholder="e.g. Monthly salary…" maxlength="100" autocomplete="off" />
-      </div>
-      <div class="form-group">
-        <label class="label" for="m-category">Category</label>
-        <select class="select" id="m-category" aria-label="Category"></select>
-      </div>
-      <div class="form-group">
-        <label class="label" for="m-date">Date *</label>
-        <input class="input" type="date" id="m-date" />
-      </div>
-      <div class="form-group">
-        <label class="label" for="m-note">Note <span style="text-transform:none;font-weight:400">(optional)</span></label>
-        <input class="input" type="text" id="m-note" placeholder="Any extra details…" maxlength="200" />
-      </div>
-      <button class="btn btn-primary btn-full" onclick="App.submitTx()" style="margin-top:6px">
-        Save Transaction
-      </button>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-av" aria-hidden="true">FI</div>
+      <div><div class="user-name" id="sidebar-uname">My Account</div><div class="user-role">Personal Finance</div></div>
     </div>
   </div>
-</div>
+</aside>
 
-<!-- Budget Modal -->
-<div class="modal-overlay" id="budget-modal" onclick="Modal.onBg(event,'budget-modal')"
-     role="dialog" aria-modal="true" aria-label="Set budget">
-  <div class="modal">
-    <div class="modal-head">
-      <span class="modal-title">Set Category Budget</span>
-      <button class="modal-close" onclick="Modal.close('budget-modal')" aria-label="Close modal">✕</button>
+<!-- ═════ MAIN ═════ -->
+<main class="main" id="main" role="main">
+<div class="main-inner">
+
+<!-- ══════════ DASHBOARD ══════════ -->
+<section class="page active" id="page-dashboard" aria-labelledby="d-h1">
+  <div class="ph">
+    <div><div class="ph-eye">Overview</div><h1 class="ph-title" id="d-h1">My <em>Dashboard</em></h1><p class="ph-sub" id="d-month"></p></div>
+    <div class="ph-acts">
+      <button class="btn btn-ghost hide-mobile" onclick="App.exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
+      <button class="btn btn-pri" onclick="App.openAdd()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add</button>
     </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="label" for="b-modal-cat">Category</label>
-        <select class="select" id="b-modal-cat" aria-label="Budget category">
-          <option value="food">🍔 Food &amp; Dining</option>
-          <option value="transport">🚗 Transport</option>
-          <option value="shopping">🛍 Shopping</option>
-          <option value="health">💊 Health</option>
-          <option value="rent">🏠 Rent / Housing</option>
-          <option value="entertainment">🎮 Entertainment</option>
-          <option value="utilities">⚡ Utilities</option>
-          <option value="education">📚 Education</option>
-          <option value="other">📦 Other</option>
+  </div>
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kc kc-acc d1"><div class="kpi-icon">💰</div><div class="kpi-lbl">Net Balance</div><div class="kpi-val acc" id="d-bal" aria-live="polite">—</div><div class="kpi-meta">All-time</div></div>
+    <div class="kc kc-grn d2"><div class="kpi-icon">📈</div><div class="kpi-lbl">Income</div><div class="kpi-val pos" id="d-inc" aria-live="polite">—</div><div class="kpi-meta" id="d-inc-trend"></div></div>
+    <div class="kc kc-red d3"><div class="kpi-icon">📉</div><div class="kpi-lbl">Expenses</div><div class="kpi-val neg" id="d-exp" aria-live="polite">—</div><div class="kpi-meta" id="d-exp-trend"></div></div>
+    <div class="kc kc-blu d4"><div class="kpi-icon">🎯</div><div class="kpi-lbl">Net This Month</div><div class="kpi-val blu" id="d-net" aria-live="polite">—</div><div class="kpi-meta"><span id="d-rate">0%</span> savings rate</div></div>
+  </div>
+  <!-- Insights -->
+  <div id="d-insights" style="display:flex;gap:var(--sp3);flex-wrap:wrap;margin-bottom:var(--sp6)" aria-live="polite"></div>
+  <!-- 2-col -->
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">Recent Transactions</h2>
+        <div style="display:flex;gap:var(--sp3);align-items:center;flex-wrap:wrap">
+          <div class="tabs" role="tablist">
+            <button class="tab active" role="tab" onclick="App.setDashFilt('all',this)">All</button>
+            <button class="tab" role="tab" onclick="App.setDashFilt('income',this)">Income</button>
+            <button class="tab" role="tab" onclick="App.setDashFilt('expense',this)">Expense</button>
+          </div>
+          <button class="btn btn-ghost btn-sm hide-mobile" onclick="App.goTo('history')">View all →</button>
+        </div>
+      </div>
+      <div class="tx-scroll"><table class="tx-table" aria-label="Recent transactions">
+        <thead><tr><th scope="col">Description</th><th scope="col" class="hide-mobile">Category</th><th scope="col" class="hide-mobile">Date</th><th scope="col">Amount</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody id="d-tx-body"></tbody>
+      </table>
+      <div class="empty" id="d-empty" style="display:none"><div class="empty-ico">🪙</div><p>No transactions yet.<br>Add your first one!</p><button class="btn btn-pri" onclick="App.openAdd()">+ Add Transaction</button></div>
+      </div>
+    </div>
+    <div class="col-stack">
+      <!-- Quick Add -->
+      <div class="panel">
+        <div class="panel-head"><h2 class="panel-title">Quick Add</h2><span style="font-size:10px;color:var(--t2);font-family:var(--ff-mono)" aria-hidden="true">Ctrl+K</span></div>
+        <div class="panel-body-sm">
+          <div class="type-toggle" role="group">
+            <button class="type-btn income on" id="q-inc" onclick="App.setQuickType('income')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>Income</button>
+            <button class="type-btn expense" id="q-exp" onclick="App.setQuickType('expense')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>Expense</button>
+          </div>
+          <div class="fg"><label class="lbl" for="q-amt">Amount</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="q-amt" placeholder="0.00" min="0" step="0.01" inputmode="decimal" aria-label="Amount"/></div></div>
+          <div class="fg"><label class="lbl" for="q-desc">Description</label><input class="inp" type="text" id="q-desc" placeholder="e.g. Grocery shopping…" maxlength="100" autocomplete="off"/></div>
+          <div class="fg"><label class="lbl" for="q-cat">Category</label><select class="sel" id="q-cat"></select></div>
+          <div class="fg"><label class="lbl" for="q-date">Date</label><input class="inp" type="date" id="q-date"/></div>
+          <button class="btn btn-pri btn-full" onclick="App.quickAdd()" style="margin-top:4px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Save Transaction</button>
+        </div>
+      </div>
+      <!-- 7-day chart -->
+      <div class="panel">
+        <div class="panel-head"><h2 class="panel-title">Last 7 Days</h2></div>
+        <div class="panel-body-sm">
+          <div id="d-chart" role="img" aria-label="7-day chart"></div>
+          <div class="chart-leg"><div class="leg-item"><div class="leg-dot" style="background:var(--grn)"></div>Income</div><div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Expense</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HISTORY ══════════ -->
+<section class="page" id="page-history" aria-labelledby="h-h1">
+  <div class="ph">
+    <div><div class="ph-eye">Ledger</div><h1 class="ph-title" id="h-h1">Transaction <em>History</em></h1><p class="ph-sub" id="h-cnt" aria-live="polite"></p></div>
+    <div class="ph-acts">
+      <div class="search-wrap hide-mobile" style="max-width:220px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="inp search-inp" type="search" id="hist-search" placeholder="Search…" aria-label="Search transactions"/></div>
+      <button class="btn btn-ghost hide-mobile" onclick="App.exportCSV()">⬇ CSV</button>
+      <button class="btn btn-pri" onclick="App.openAdd()">+ Add</button>
+    </div>
+  </div>
+  <!-- Mobile search -->
+  <div id="hist-search-m-wrap" style="margin-bottom:var(--sp4)">
+    <div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="inp search-inp" type="search" id="hist-search-m" placeholder="Search…" style="width:100%" aria-label="Search"/></div>
+  </div>
+  <!-- Summary -->
+  <div class="kpi-grid" style="margin-bottom:var(--sp5)">
+    <div class="kc kc-grn" style="padding:var(--sp4) var(--sp5)"><div class="kpi-lbl">Total Income</div><div class="kpi-val pos" style="font-size:18px" id="h-inc">—</div></div>
+    <div class="kc kc-red" style="padding:var(--sp4) var(--sp5)"><div class="kpi-lbl">Total Expenses</div><div class="kpi-val neg" style="font-size:18px" id="h-exp">—</div></div>
+    <div class="kc kc-acc" style="padding:var(--sp4) var(--sp5)"><div class="kpi-lbl">Net Balance</div><div class="kpi-val acc" style="font-size:18px" id="h-bal">—</div></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">All Transactions</h2>
+      <div class="tabs" role="tablist">
+        <button class="tab active" role="tab" onclick="App.setHistFilt('all',this)">All</button>
+        <button class="tab" role="tab" onclick="App.setHistFilt('income',this)">Income</button>
+        <button class="tab" role="tab" onclick="App.setHistFilt('expense',this)">Expense</button>
+      </div>
+    </div>
+    <div class="tx-scroll"><table class="tx-table" aria-label="All transactions">
+      <thead><tr><th scope="col">Description</th><th scope="col" class="hide-mobile">Category</th><th scope="col" class="hide-mobile">Date</th><th scope="col">Amount</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+      <tbody id="h-tx-body"></tbody>
+    </table>
+    <div class="empty" id="h-empty" style="display:none"><div class="empty-ico">🔍</div><p>No transactions found.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ BUDGET ══════════ -->
+<section class="page" id="page-budget" aria-labelledby="b-h1">
+  <div class="ph">
+    <div><div class="ph-eye">Planning</div><h1 class="ph-title" id="b-h1">Budget <em>Planner</em></h1><p class="ph-sub">Monthly spending limits</p></div>
+    <div class="ph-acts"><button class="btn btn-pri" onclick="App.openBudgetModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Budget</button></div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kc kc-acc d1"><div class="kpi-icon">🎯</div><div class="kpi-lbl">Total Budget</div><div class="kpi-val acc" id="b-total">—</div><div class="kpi-meta">Monthly limit</div></div>
+    <div class="kc kc-red d2"><div class="kpi-icon">💸</div><div class="kpi-lbl">Spent</div><div class="kpi-val neg" id="b-spent">—</div><div class="kpi-meta">This month</div></div>
+    <div class="kc kc-grn d3"><div class="kpi-icon">✅</div><div class="kpi-lbl">Remaining</div><div class="kpi-val pos" id="b-rem">—</div><div class="kpi-meta">Available</div></div>
+  </div>
+  <div class="panel" style="margin-bottom:var(--sp6)">
+    <div class="panel-head"><h2 class="panel-title">Overall Progress</h2><span id="b-pct" style="font-family:var(--ff-mono);font-size:14px;font-weight:700;color:var(--t1)" aria-live="polite">0%</span></div>
+    <div class="panel-body-sm"><div class="prog-track" style="height:10px" role="progressbar"><div class="prog-fill safe" id="b-fill" style="width:0%"></div></div></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h2 class="panel-title">Category Budgets</h2><button class="btn btn-ghost btn-sm" onclick="App.openBudgetModal()">+ Add</button></div>
+    <div class="panel-body"><div id="b-list"></div></div>
+  </div>
+</section>
+
+<!-- ══════════ REPORTS ══════════ -->
+<section class="page" id="page-reports" aria-labelledby="r-h1">
+  <div class="ph">
+    <div><div class="ph-eye">Insights</div><h1 class="ph-title" id="r-h1">Financial <em>Reports</em></h1></div>
+    <div class="ph-acts hide-mobile">
+      <button class="btn btn-ghost" onclick="App.exportCSV()">⬇ Export CSV</button>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kc kc-red  d1"><div class="kpi-icon">📅</div><div class="kpi-lbl">Avg Daily Spend</div><div class="kpi-val neg" id="r-avg">—</div><div class="kpi-meta">This month</div></div>
+    <div class="kc kc-grn  d2"><div class="kpi-icon">📊</div><div class="kpi-lbl">Savings Rate</div><div class="kpi-val pos" id="r-rate">—</div><div class="kpi-meta" id="r-exp-trend"></div></div>
+    <div class="kc kc-acc  d3"><div class="kpi-icon">🏆</div><div class="kpi-lbl">Top Expense</div><div class="kpi-val acc" style="font-size:16px" id="r-top-cat">—</div><div class="kpi-meta" id="r-top-amt"></div></div>
+    <div class="kc kc-pur  d4"><div class="kpi-icon">💎</div><div class="kpi-lbl">Net Worth</div><div class="kpi-val pur" id="r-worth">—</div><div class="kpi-meta">All-time</div></div>
+  </div>
+  <!-- Month nav + mini stats -->
+  <div class="panel" style="margin-bottom:var(--sp6)">
+    <div class="panel-head">
+      <h2 class="panel-title">Monthly Deep Dive</h2>
+      <div class="month-nav">
+        <button onclick="App.rptPrevMonth()" aria-label="Previous month">‹</button>
+        <span class="month-lbl" id="rpt-month-lbl"></span>
+        <button onclick="App.rptNextMonth()" aria-label="Next month">›</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp5);margin-bottom:var(--sp5)">
+        <div><div style="font-size:11px;color:var(--t2);margin-bottom:4px">INCOME</div><div style="font-family:var(--ff-mono);font-size:16px;font-weight:700;color:var(--grn)" id="r-inc">—</div><div id="r-inc-trend" style="font-size:11px;margin-top:2px"></div></div>
+        <div><div style="font-size:11px;color:var(--t2);margin-bottom:4px">EXPENSE</div><div style="font-family:var(--ff-mono);font-size:16px;font-weight:700;color:var(--red)" id="r-exp">—</div></div>
+      </div>
+      <div style="font-size:11.5px;color:var(--t2);margin-bottom:var(--sp4)">Income by source</div>
+      <div id="r-inc-breakdown"></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-head"><h2 class="panel-title">6-Month Overview</h2></div>
+      <div class="panel-body"><div id="r-6m-chart" role="img" aria-label="6-month chart"></div><div class="chart-leg"><div class="leg-item"><div class="leg-dot" style="background:var(--grn)"></div>Income</div><div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Expense</div></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2 class="panel-title">Expense Breakdown</h2></div>
+      <div class="panel-body"><div id="r-donut"></div></div>
+    </div>
+  </div>
+  <!-- Heatmap -->
+  <div class="panel" style="margin-top:var(--sp6)">
+    <div class="panel-head"><h2 class="panel-title">Spending Heatmap</h2><span style="font-size:11px;color:var(--t2)">Last 52 weeks</span></div>
+    <div class="panel-body" style="overflow-x:auto"><div id="r-heatmap"></div></div>
+  </div>
+</section>
+
+<!-- ══════════ SETTINGS ══════════ -->
+<section class="page" id="page-settings" aria-labelledby="s-h1">
+  <div class="ph"><div><div class="ph-eye">Preferences</div><h1 class="ph-title" id="s-h1">App <em>Settings</em></h1></div></div>
+
+  <!-- Install -->
+  <div class="panel" style="margin-bottom:var(--sp6);border-color:rgba(240,193,75,.2)">
+    <div class="panel-head"><h2 class="panel-title">📱 Install App</h2></div>
+    <div class="panel-body">
+      <p style="font-size:13.5px;color:var(--t1);margin-bottom:var(--sp5);line-height:1.6">Install CashFlow on your home screen for a native app feel — works offline, loads instantly, no browser UI.</p>
+      <div style="display:flex;gap:var(--sp3);flex-wrap:wrap;align-items:center">
+        <button class="btn btn-pri" onclick="App.triggerInstall()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Install CashFlow</button>
+        <span style="font-size:12px;color:var(--t2)">Or use "Add to Home Screen" in your browser</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile -->
+  <div class="panel" style="margin-bottom:var(--sp6)">
+    <div class="panel-head"><h2 class="panel-title">Profile</h2></div>
+    <div class="panel-body">
+      <div class="fg"><label class="lbl" for="s-name">Your Name</label><input class="inp" type="text" id="s-name" placeholder="e.g. Faruk Islam" maxlength="50"/></div>
+      <div class="fg"><label class="lbl" for="s-currency">Currency Symbol</label>
+        <select class="sel" id="s-currency">
+          <option value="৳">৳ — Bangladeshi Taka (BDT)</option>
+          <option value="$">$ — US Dollar (USD)</option>
+          <option value="€">€ — Euro (EUR)</option>
+          <option value="£">£ — British Pound (GBP)</option>
+          <option value="₹">₹ — Indian Rupee (INR)</option>
+          <option value="¥">¥ — Japanese Yen (JPY)</option>
+          <option value="₩">₩ — Korean Won (KRW)</option>
+          <option value="﷼">﷼ — Saudi Riyal (SAR)</option>
+          <option value="₺">₺ — Turkish Lira (TRY)</option>
+          <option value="₦">₦ — Nigerian Naira (NGN)</option>
         </select>
       </div>
-      <div style="margin-bottom:14px">
-        <label class="label" for="b-modal-limit">Monthly Limit</label>
-        <div class="amount-display">
-          <span class="amount-currency" aria-hidden="true">৳</span>
-          <input class="amount-input" type="number" id="b-modal-limit" placeholder="0.00"
-                 min="0" step="100" aria-label="Monthly limit" inputmode="decimal" />
-        </div>
-      </div>
-      <button class="btn btn-primary btn-full" onclick="App.submitBudget()">
-        Save Budget
-      </button>
+      <button class="btn btn-pri" onclick="App.saveSettings()">Save Changes</button>
     </div>
   </div>
-</div>
 
-<!-- Confirm Dialog -->
-<div class="confirm-overlay" id="confirm-overlay" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
-  <div class="confirm-box">
-    <div class="confirm-icon" aria-hidden="true">⚠️</div>
-    <div class="confirm-title" id="confirm-title">Are you sure?</div>
-    <p class="confirm-msg" id="confirm-msg"></p>
-    <div class="confirm-acts">
-      <button class="btn btn-ghost" id="confirm-no">Cancel</button>
-      <button class="btn btn-danger" id="confirm-yes">Confirm</button>
+  <!-- Preferences -->
+  <div class="panel" style="margin-bottom:var(--sp6)">
+    <div class="panel-head"><h2 class="panel-title">Preferences</h2></div>
+    <div class="panel-body" style="padding-top:var(--sp3)">
+      <div class="set-row"><div><div class="set-title">Budget Alerts</div><div class="set-desc">Highlight categories near their limit</div></div><button class="toggle on" id="tog-notifications" onclick="App.toggleSetting('notifications',this)" role="switch" aria-checked="true"></button></div>
+      <div class="set-row"><div><div class="set-title">Compact View</div><div class="set-desc">Denser transaction rows</div></div><button class="toggle" id="tog-compactView" onclick="App.toggleSetting('compactView',this)" role="switch" aria-checked="false"></button></div>
+      <div class="set-row"><div><div class="set-title">Smart Insights</div><div class="set-desc">Show spending insights on dashboard</div></div><button class="toggle on" id="tog-showInsights" onclick="App.toggleSetting('showInsights',this)" role="switch" aria-checked="true"></button></div>
     </div>
+  </div>
+
+  <!-- Recurring -->
+  <div class="panel" style="margin-bottom:var(--sp6)">
+    <div class="panel-head"><h2 class="panel-title">↻ Recurring Transactions</h2><button class="btn btn-ghost btn-sm" onclick="App.openRecurModal()">+ Add</button></div>
+    <div class="panel-body"><div id="recur-list"></div></div>
+  </div>
+
+  <!-- Goals -->
+  <div class="panel" style="margin-bottom:var(--sp6)">
+    <div class="panel-head"><h2 class="panel-title">🏆 Savings Goals</h2><button class="btn btn-ghost btn-sm" onclick="App.openGoalModal()">+ Add Goal</button></div>
+    <div class="panel-body"><div id="goals-list"></div></div>
+  </div>
+
+  <!-- Data -->
+  <div class="panel" style="margin-bottom:var(--sp6)">
+    <div class="panel-head"><h2 class="panel-title">Data Management</h2></div>
+    <div class="panel-body">
+      <div style="background:var(--s2);border:1px solid var(--b0);border-radius:var(--r2);padding:var(--sp4) var(--sp5);margin-bottom:var(--sp5)">
+        <div style="font-size:12.5px;color:var(--t1);line-height:1.6">🔒 <strong style="color:var(--t0)">100% Private.</strong> All data stored locally in your browser. Nothing sent to any server.</div>
+        <div style="margin-top:var(--sp3);font-size:12px;color:var(--t2)">Storage: <strong style="color:var(--t1)" id="s-size">—</strong> · <span id="s-count">—</span></div>
+      </div>
+      <div style="display:flex;gap:var(--sp3);flex-wrap:wrap">
+        <button class="btn btn-ghost" onclick="App.exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export CSV</button>
+        <button class="btn btn-ghost" onclick="App.exportJSON()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Backup JSON</button>
+        <button class="btn btn-ghost" onclick="App.importJSON()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Restore JSON</button>
+        <button class="btn btn-danger" onclick="App.clearData()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="panel">
+    <div class="panel-head"><h2 class="panel-title">About</h2></div>
+    <div class="panel-body">
+      <p style="font-size:13.5px;color:var(--t1);line-height:1.7"><strong style="color:var(--t0)">CashFlow PWA v3.0</strong><br/>Personal cash management — offline-first, zero tracking, zero backend.<br/>Vanilla HTML · CSS · JavaScript · Service Worker<br/><span style="color:var(--t2)"><br/>⌨️ <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:11px">Ctrl+K</code> Add &nbsp;·&nbsp; <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:11px">Esc</code> Close &nbsp;·&nbsp; <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:11px">1-5</code> Navigate<br/><br/>© 2025 <a href="https://github.com/farukislamyt" target="_blank" rel="noopener noreferrer" style="color:var(--acc);text-decoration:underline">Faruk Islam</a></span></p>
+    </div>
+  </div>
+</section>
+
+</div></main>
+</div><!-- /#app -->
+
+<!-- ═════ BOTTOM NAV ═════ -->
+<nav class="bnav" role="navigation" aria-label="Bottom navigation">
+<div class="bnav-inner">
+  <button class="bn active" data-page="dashboard" onclick="App.goTo('dashboard')" aria-current="page" aria-label="Dashboard">
+    <div style="position:relative"><svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>Home</button>
+  <button class="bn" data-page="history" onclick="App.goTo('history')" aria-label="History">
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>History</button>
+  <button class="bn" data-page="budget" onclick="App.goTo('budget')" aria-label="Budget">
+    <div style="position:relative"><svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg><span class="bn-dot" id="bn-bud-dot" aria-hidden="true"></span></div>Budget</button>
+  <button class="bn" data-page="reports" onclick="App.goTo('reports')" aria-label="Reports">
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Reports</button>
+  <button class="bn" data-page="settings" onclick="App.goTo('settings')" aria-label="Settings">
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</button>
+</div>
+</nav>
+
+<!-- ═════ MODALS ═════ -->
+
+<!-- Transaction -->
+<div class="modal-overlay" id="tx-modal" onclick="Modal.onBg(event,'tx-modal')" role="dialog" aria-modal="true" aria-labelledby="m-title">
+<div class="modal">
+  <div class="modal-head"><span class="modal-title" id="m-title">Add Transaction</span><button class="modal-close" onclick="Modal.close('tx-modal')" aria-label="Close">✕</button></div>
+  <div class="modal-body">
+    <div class="type-toggle" role="group"><button class="type-btn income on" id="m-inc" onclick="App.setModalType('income')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>Income</button><button class="type-btn expense" id="m-exp" onclick="App.setModalType('expense')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>Expense</button></div>
+    <div class="fg"><label class="lbl" for="m-amt">Amount *</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="m-amt" placeholder="0.00" min="0" step="0.01" inputmode="decimal" aria-label="Amount"/></div></div>
+    <div class="fg"><label class="lbl" for="m-desc">Description *</label><input class="inp" type="text" id="m-desc" placeholder="e.g. Monthly salary…" maxlength="100" autocomplete="off"/></div>
+    <div class="fg"><label class="lbl" for="m-cat">Category</label><select class="sel" id="m-cat"></select></div>
+    <div class="fg"><label class="lbl" for="m-date">Date *</label><input class="inp" type="date" id="m-date"/></div>
+    <div class="fg"><label class="lbl" for="m-note">Note <span style="text-transform:none;font-weight:400;letter-spacing:0">(optional)</span></label><input class="inp" type="text" id="m-note" placeholder="Any extra details…" maxlength="200"/></div>
+    <button class="btn btn-pri btn-full" onclick="App.submitTx()" style="margin-top:6px">Save Transaction</button>
+  </div>
+</div></div>
+
+<!-- Budget -->
+<div class="modal-overlay" id="budget-modal" onclick="Modal.onBg(event,'budget-modal')" role="dialog" aria-modal="true">
+<div class="modal">
+  <div class="modal-head"><span class="modal-title">Set Category Budget</span><button class="modal-close" onclick="Modal.close('budget-modal')" aria-label="Close">✕</button></div>
+  <div class="modal-body">
+    <div class="fg"><label class="lbl" for="bm-cat">Category</label>
+      <select class="sel" id="bm-cat">
+        <option value="food">🍔 Food &amp; Dining</option><option value="transport">🚗 Transport</option><option value="shopping">🛍 Shopping</option><option value="health">💊 Health</option><option value="rent">🏠 Rent</option><option value="entertainment">🎮 Entertainment</option><option value="utilities">⚡ Utilities</option><option value="education">📚 Education</option><option value="other">📦 Other</option>
+      </select>
+    </div>
+    <div class="fg"><label class="lbl" for="bm-limit">Monthly Limit</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="bm-limit" placeholder="0.00" min="0" step="100" inputmode="decimal"/></div></div>
+    <button class="btn btn-pri btn-full" onclick="App.submitBudget()">Save Budget</button>
+  </div>
+</div></div>
+
+<!-- Recurring -->
+<div class="modal-overlay" id="recur-modal" onclick="Modal.onBg(event,'recur-modal')" role="dialog" aria-modal="true">
+<div class="modal">
+  <div class="modal-head"><span class="modal-title">Add Recurring</span><button class="modal-close" onclick="Modal.close('recur-modal')" aria-label="Close">✕</button></div>
+  <div class="modal-body">
+    <div class="type-toggle" role="group"><button class="type-btn income on" id="rec-inc" onclick="App.setRecType('income')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>Income</button><button class="type-btn expense" id="rec-exp" onclick="App.setRecType('expense')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>Expense</button></div>
+    <div class="fg"><label class="lbl" for="rec-amt">Amount</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="rec-amt" placeholder="0.00" min="0" step="0.01" inputmode="decimal"/></div></div>
+    <div class="fg"><label class="lbl" for="rec-desc">Description *</label><input class="inp" type="text" id="rec-desc" placeholder="e.g. Netflix, Rent…" maxlength="100" autocomplete="off"/></div>
+    <div class="fg"><label class="lbl" for="rec-cat">Category</label><select class="sel" id="rec-cat"></select></div>
+    <div class="fg"><label class="lbl" for="rec-freq">Frequency</label>
+      <select class="sel" id="rec-freq"><option value="monthly">Monthly</option><option value="weekly">Weekly</option><option value="yearly">Yearly</option></select>
+    </div>
+    <div class="fg"><label class="lbl" for="rec-date">Start / Next Date</label><input class="inp" type="date" id="rec-date"/></div>
+    <button class="btn btn-pri btn-full" onclick="App.submitRecur()" style="margin-top:6px">Add Recurring Entry</button>
+  </div>
+</div></div>
+
+<!-- Goal -->
+<div class="modal-overlay" id="goal-modal" onclick="Modal.onBg(event,'goal-modal')" role="dialog" aria-modal="true">
+<div class="modal">
+  <div class="modal-head"><span class="modal-title">Add Savings Goal</span><button class="modal-close" onclick="Modal.close('goal-modal')" aria-label="Close">✕</button></div>
+  <div class="modal-body">
+    <div style="display:grid;grid-template-columns:60px 1fr;gap:var(--sp3);margin-bottom:14px">
+      <div><label class="lbl" for="goal-emoji">Icon</label><input class="inp" type="text" id="goal-emoji" placeholder="🎯" maxlength="2" style="text-align:center;font-size:22px;padding:8px 0"/></div>
+      <div><label class="lbl" for="goal-name">Goal Name *</label><input class="inp" type="text" id="goal-name" placeholder="e.g. Emergency Fund" maxlength="60" autocomplete="off"/></div>
+    </div>
+    <div class="fg"><label class="lbl" for="goal-target">Target Amount *</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="goal-target" placeholder="0.00" min="0" step="100" inputmode="decimal"/></div></div>
+    <div class="fg"><label class="lbl" for="goal-saved">Amount Already Saved</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="goal-saved" placeholder="0.00" min="0" step="100" inputmode="decimal"/></div></div>
+    <div class="fg"><label class="lbl" for="goal-deadline">Target Date <span style="text-transform:none;font-weight:400;letter-spacing:0">(optional)</span></label><input class="inp" type="date" id="goal-deadline"/></div>
+    <button class="btn btn-pri btn-full" onclick="App.submitGoal()" style="margin-top:6px">Create Goal</button>
+  </div>
+</div></div>
+
+<!-- Confirm -->
+<div class="confirm-overlay" id="confirm-overlay" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+<div class="confirm-box">
+  <div class="confirm-icon">⚠️</div>
+  <div class="confirm-title" id="confirm-title">Are you sure?</div>
+  <p class="confirm-msg" id="confirm-msg"></p>
+  <div class="confirm-acts">
+    <button class="btn btn-ghost" id="confirm-no">Cancel</button>
+    <button class="btn btn-danger" id="confirm-yes">Confirm</button>
+  </div>
+</div></div>
+
+<!-- PWA Install Banner -->
+<div class="install-banner" id="install-banner" role="complementary">
+  <div class="ib-icon">💸</div>
+  <div class="ib-body"><div class="ib-title">Install CashFlow</div><div class="ib-sub">Add to home screen for offline access</div></div>
+  <div class="ib-btns">
+    <button class="ib-install" onclick="App.triggerInstall()">Install</button>
+    <button class="ib-dismiss" onclick="App.dismissInstall()">✕</button>
   </div>
 </div>
 
 <!-- Toast -->
 <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-<!-- ══════════════════════════════════════
-     SCRIPTS
-══════════════════════════════════════ -->
+<!-- SVG favicon inline -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" style="display:none" id="favicon-svg">
+  <rect width="32" height="32" rx="8" fill="#f0c14b"/>
+  <text x="16" y="22" text-anchor="middle" font-size="19">💸</text>
+</svg>
+
 <script src="assets/js/store.js"></script>
 <script src="assets/js/ui.js"></script>
 <script src="assets/js/app.js"></script>
-
-<!-- Mobile: show search on history page -->
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    // Show mobile search wrap on history page
-    const mq = window.matchMedia('(max-width: 768px)');
-    function syncMobileSearch() {
-      const wrap = document.getElementById('hist-search-mobile-wrap');
-      if (wrap) wrap.style.display = mq.matches ? 'block' : 'none';
-    }
-    mq.addEventListener('change', syncMobileSearch);
-  });
-</script>
 </body>
 </html>

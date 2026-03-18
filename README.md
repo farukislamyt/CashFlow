@@ -1,77 +1,71 @@
-# 💸 CashFlow — Personal Cash Management
+# 💸 CashFlow PWA v3.0
 
-> Production-grade personal finance tracker. Responsive, SEO-friendly, offline-first.
-> Zero frameworks · Zero backend · Zero tracking.
+> Production-grade Progressive Web App. Offline-first. Installable. New features. All bugs fixed.
 
 🌐 **Live:** [farukislamyt.github.io/CashFlow](https://farukislamyt.github.io/CashFlow/)
 
 ---
 
-## ✨ Features
+## ✨ What's New in v3.0
 
 | Feature | Details |
 |---|---|
-| 📊 **Dashboard** | KPI cards, 7-day chart, quick-add form |
-| 📋 **History** | Full transaction list with search & filter |
-| 🎯 **Budget** | Per-category monthly limits + progress bars |
-| 📈 **Reports** | 6-month chart, expense donut, savings rate |
-| ⚙️ **Settings** | Name, currency, export/import, data management |
-| 📱 **Bottom Nav** | Native-feeling mobile nav with badge indicators |
-| 🔒 **Private** | 100% localStorage — data never leaves your device |
-| 📤 **Export** | CSV + JSON backup/restore |
-| ♿ **Accessible** | ARIA labels, semantic HTML, keyboard navigation |
-| 🔍 **SEO** | Meta tags, Open Graph, Twitter Card, JSON-LD |
+| 🔄 **Recurring Transactions** | Weekly/Monthly/Yearly auto-entries, pause/resume |
+| 🏆 **Savings Goals** | Track progress toward financial targets with deadlines |
+| 🌡️ **Spending Heatmap** | 52-week visual calendar of daily spending |
+| 📊 **Month Navigation** | Browse any past month in Reports |
+| 💡 **Smart Insights** | Auto-generated chips: top category, savings rate, due recurring |
+| 📈 **MoM Trends** | Month-over-month % change on KPIs |
+| 📥 **Income Breakdown** | Per-source income chart in Reports |
+| 🔒 **Confirm Dialogs** | Custom native-free confirm — works in PWA standalone |
+| ⌨️ **Number Nav** | Press 1-5 to jump between pages |
+| 🔄 **Auto Apply Recurring** | Due entries applied automatically on app open |
+
+## 🐛 Bugs Fixed
+
+- ✅ Category dropdown not pre-selecting on edit → fixed with `requestAnimationFrame`
+- ✅ Same-page `goTo()` early return preventing re-render → removed guard
+- ✅ Inline `onclick` with raw IDs (XSS risk) → replaced with event delegation everywhere
+- ✅ `confirm()` broken in PWA standalone mode → replaced with custom dialog
+- ✅ Savings rate showing negative → clamped to `Math.max(0, ...)`
+- ✅ Touch devices: action buttons hidden → always visible on `hover:none` devices
+- ✅ History mobile search not synced to desktop search
+- ✅ Modal body overflow on small screens → `max-height: 92dvh`
+- ✅ Budget badge not clearing after budget deletion
+- ✅ SW registering with wrong scope on GitHub Pages
 
 ---
 
-## 🗂 File Structure
+## 📁 File Structure
 
 ```
 CashFlow/
-├── index.html                ← App shell (all 5 pages)
-├── README.md
-├── .nojekyll                 ← Required for GitHub Pages
+├── index.html          ← App shell + all 5 pages
+├── manifest.json       ← PWA manifest with shortcuts
+├── sw.js               ← Service Worker (cache-first + stale-while-revalidate)
+├── .nojekyll
 └── assets/
     ├── css/
-    │   ├── tokens.css        ← Design tokens (CSS variables)
-    │   ├── base.css          ← Reset, layout shell
-    │   ├── nav.css           ← Sidebar + TopBar + BottomNav
-    │   └── components.css    ← All UI components
+    │   ├── tokens.css      ← CSS variables
+    │   ├── base.css        ← Reset, layout, animations
+    │   ├── nav.css         ← Sidebar, TopBar, BottomNav, PWA banners
+    │   └── components.css  ← All UI components + new features
     ├── js/
-    │   ├── store.js          ← Data layer (localStorage, no seed data)
-    │   ├── ui.js             ← Render helpers, toast, modal, charts
-    │   └── app.js            ← App controller, page logic
+    │   ├── store.js        ← Data layer + recurring + goals
+    │   ├── ui.js           ← Rendering helpers + heatmap + sparkline
+    │   └── app.js          ← Controller + PWA hooks + all page logic
     └── icons/
-        └── favicon.svg
+        ├── icon.svg
+        ├── icon-192.png
+        └── icon-512.png
 ```
 
 ---
 
-## 🚀 Deploy to GitHub Pages
+## 🚀 Deploy
 
-1. Push all files to your `CashFlow` repo (root of `main` branch)
-2. **Settings → Pages → Source → Deploy from branch → `main` / `root`**
+1. Push all files to `CashFlow` repo root (`main` branch)
+2. **Settings → Pages → Source → Deploy from branch → `main` → `/ (root)`**
 3. Live at `https://farukislamyt.github.io/CashFlow/`
 
----
-
-## ⌨️ Keyboard Shortcuts
-
-| Shortcut | Action |
-|---|---|
-| `Ctrl + K` | Open Add Transaction modal |
-| `Esc` | Close any open modal |
-
----
-
-## 🏗 Architecture
-
-| File | Role |
-|---|---|
-| `store.js` | Single source of truth. All reads/writes. Versioned keys. Quota handling. |
-| `ui.js` | Stateless helpers: `txRow()`, `renderBarChart()`, `renderDonut()`, `Toast`, `Modal`, `Confirm`. |
-| `app.js` | Controller. Owns page state, wires all user events, calls Store + UI. |
-
----
-
-Built by [Faruk Islam](https://github.com/farukislamyt) · MIT License
+Built by [Faruk Islam](https://github.com/farukislamyt) · MIT
