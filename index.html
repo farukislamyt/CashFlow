@@ -3,24 +3,18 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<!-- SEO -->
 <title>CashFlow — Personal Cash Manager</title>
-<meta name="description" content="Track income, expenses and budgets. Offline-first, private, free. Works as an installable PWA."/>
-<meta name="keywords" content="cash management,personal finance,budget tracker,expense tracker,money app,offline finance,PWA"/>
+<meta name="description" content="Track income, expenses and budgets. Offline-first, private, free. PWA."/>
 <meta name="author" content="Faruk Islam"/>
 <meta name="robots" content="index,follow"/>
 <link rel="canonical" href="https://farukislamyt.github.io/CashFlow/"/>
-<!-- OG -->
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="CashFlow — Personal Cash Manager"/>
 <meta property="og:description" content="Free offline personal finance tracker. No account. No data shared."/>
 <meta property="og:url" content="https://farukislamyt.github.io/CashFlow/"/>
 <meta property="og:image" content="https://farukislamyt.github.io/CashFlow/assets/icons/icon-512.png"/>
-<!-- Twitter -->
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CashFlow — Personal Cash Manager"/>
 <meta name="twitter:creator" content="@farukislamyt"/>
-<!-- PWA -->
 <meta name="theme-color" content="#07090f"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -29,26 +23,22 @@
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml"/>
 <link rel="apple-touch-icon" href="assets/icons/icon-192.png"/>
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-<!-- Styles -->
 <link rel="stylesheet" href="assets/css/tokens.css"/>
 <link rel="stylesheet" href="assets/css/base.css"/>
 <link rel="stylesheet" href="assets/css/nav.css"/>
 <link rel="stylesheet" href="assets/css/components.css"/>
-<!-- Structured Data -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CashFlow","url":"https://farukislamyt.github.io/CashFlow/","description":"Personal cash management PWA","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Faruk Islam","url":"https://github.com/farukislamyt"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CashFlow","url":"https://farukislamyt.github.io/CashFlow/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"author":{"@type":"Person","name":"Faruk Islam","url":"https://github.com/farukislamyt"}}</script>
 </head>
 <body>
 
-<!-- Offline bar -->
-<div class="offline-bar" id="offline-bar" role="alert" aria-live="polite">📡 You're offline — CashFlow still works fully. Your data is saved locally.</div>
+<div class="offline-bar" id="offline-bar" role="alert" aria-live="polite">📡 <span data-i18n="offline_msg">You're offline — CashFlow still works.</span></div>
 
 <!-- Mobile Topbar -->
 <header class="topbar" role="banner">
-  <div class="topbar-logo"><span>💸</span> Cash<em>Flow</em></div>
+  <div class="topbar-logo"><span aria-hidden="true">💸</span> Cash<em>Flow</em></div>
   <span class="topbar-title" id="topbar-title" aria-live="polite"></span>
   <div class="topbar-right">
     <button class="fab" onclick="App.openAdd()" aria-label="Add transaction">+</button>
@@ -56,37 +46,41 @@
 </header>
 
 <div id="app">
-<!-- Sidebar mask -->
 <div class="sidebar-mask" id="sidebar-mask" onclick="App.toggleSidebar()" aria-hidden="true"></div>
 
-<!-- ═════ SIDEBAR ═════ -->
+<!-- ═══ SIDEBAR ═══ -->
 <aside class="sidebar" id="sidebar" aria-label="Main navigation">
-  <a class="sidebar-logo" href="#" onclick="App.goTo('dashboard');return false" aria-label="CashFlow home">
+  <a class="sidebar-logo" href="#" onclick="App.goTo('dashboard');return false">
     <div class="logo-gem" aria-hidden="true">💸</div>
     <span class="logo-wm">Cash<em>Flow</em></span>
   </a>
   <nav class="sidebar-nav" role="navigation">
-    <span class="nav-lbl" aria-hidden="true">Menu</span>
+    <span class="nav-lbl" data-i18n="nav_dashboard" aria-hidden="true">Menu</span>
     <button class="nav-link active" data-page="dashboard" onclick="App.goTo('dashboard')" aria-current="page">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Dashboard</button>
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      <span data-i18n="nav_dashboard">Dashboard</span></button>
     <button class="nav-link" data-page="history" onclick="App.goTo('history')" aria-current="false">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>History</button>
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      <span data-i18n="nav_history">History</span></button>
     <button class="nav-link" data-page="budget" onclick="App.goTo('budget')" aria-current="false">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg>Budget
-      <span class="nav-badge" id="nav-bud-badge"></span></button>
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span data-i18n="nav_budget">Budget</span><span class="nav-badge" id="nav-bud-badge"></span></button>
     <button class="nav-link" data-page="reports" onclick="App.goTo('reports')" aria-current="false">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Reports</button>
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span data-i18n="nav_reports">Reports</span></button>
     <button class="nav-link" data-page="settings" onclick="App.goTo('settings')" aria-current="false">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</button>
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span data-i18n="nav_settings">Settings</span></button>
     <div style="margin-top:var(--sp5)">
       <button class="nav-link" onclick="App.openAdd()" style="color:var(--acc)" aria-label="Add transaction (Ctrl+K)">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add Transaction</button>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span data-i18n="nav_add">Add Transaction</span></button>
     </div>
   </nav>
   <div class="update-strip" id="update-strip" role="alert">
-    <strong>🔄 Update Available</strong>
-    <span style="color:var(--t1);font-size:11.5px">A new version is ready.</span>
-    <button id="update-btn">Reload &amp; Update</button>
+    <strong data-i18n="update_available">Update Available</strong>
+    <span style="color:var(--t1);font-size:11.5px" data-i18n="update_new_version">A new version is ready.</span>
+    <button id="update-btn" data-i18n="update_reload">Reload &amp; Update</button>
   </div>
   <div class="sidebar-footer">
     <div class="sidebar-user">
@@ -96,208 +90,225 @@
   </div>
 </aside>
 
-<!-- ═════ MAIN ═════ -->
+<!-- ═══ MAIN ═══ -->
 <main class="main" id="main" role="main">
 <div class="main-inner">
 
-<!-- ══════════ DASHBOARD ══════════ -->
+<!-- ════ DASHBOARD ════ -->
 <section class="page active" id="page-dashboard" aria-labelledby="d-h1">
   <div class="ph">
-    <div><div class="ph-eye">Overview</div><h1 class="ph-title" id="d-h1">My <em>Dashboard</em></h1><p class="ph-sub" id="d-month"></p></div>
+    <div><div class="ph-eye" data-i18n="dash_eyebrow">Overview</div><h1 class="ph-title" id="d-h1">My <em>Dashboard</em></h1><p class="ph-sub" id="d-month"></p></div>
     <div class="ph-acts">
-      <button class="btn btn-ghost hide-mobile" onclick="App.exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
-      <button class="btn btn-pri" onclick="App.openAdd()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add</button>
+      <button class="btn btn-ghost hide-mobile" onclick="App.exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span data-i18n="set_export_csv">Export CSV</span></button>
+      <button class="btn btn-pri" onclick="App.openAdd()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span data-i18n="add">Add</span></button>
     </div>
   </div>
-  <!-- KPIs -->
   <div class="kpi-grid">
-    <div class="kc kc-acc d1"><div class="kpi-icon">💰</div><div class="kpi-lbl">Net Balance</div><div class="kpi-val acc" id="d-bal" aria-live="polite">—</div><div class="kpi-meta">All-time</div></div>
-    <div class="kc kc-grn d2"><div class="kpi-icon">📈</div><div class="kpi-lbl">Income</div><div class="kpi-val pos" id="d-inc" aria-live="polite">—</div><div class="kpi-meta" id="d-inc-trend"></div></div>
-    <div class="kc kc-red d3"><div class="kpi-icon">📉</div><div class="kpi-lbl">Expenses</div><div class="kpi-val neg" id="d-exp" aria-live="polite">—</div><div class="kpi-meta" id="d-exp-trend"></div></div>
-    <div class="kc kc-blu d4"><div class="kpi-icon">🎯</div><div class="kpi-lbl">Net This Month</div><div class="kpi-val blu" id="d-net" aria-live="polite">—</div><div class="kpi-meta"><span id="d-rate">0%</span> savings rate</div></div>
+    <div class="kc kc-acc d1"><div class="kpi-icon">💰</div><div class="kpi-lbl" data-i18n="dash_net_balance">Net Balance</div><div class="kpi-val acc" id="d-bal" aria-live="polite">—</div><div class="kpi-meta"><span data-i18n="dash_all_time">All-time</span></div></div>
+    <div class="kc kc-grn d2"><div class="kpi-icon">📈</div><div class="kpi-lbl" data-i18n="dash_income">Income</div><div class="kpi-val pos" id="d-inc" aria-live="polite">—</div><div class="kpi-meta"><span id="d-inc-trend"></span><span class="kpi-spark" id="d-inc-spark"></span></div></div>
+    <div class="kc kc-red d3"><div class="kpi-icon">📉</div><div class="kpi-lbl" data-i18n="dash_expenses">Expenses</div><div class="kpi-val neg" id="d-exp" aria-live="polite">—</div><div class="kpi-meta"><span id="d-exp-trend"></span><span class="kpi-spark" id="d-exp-spark"></span></div></div>
+    <div class="kc kc-blu d4"><div class="kpi-icon">🎯</div><div class="kpi-lbl" data-i18n="dash_net_month">Net This Month</div><div class="kpi-val blu" id="d-net" aria-live="polite">—</div><div class="kpi-meta"><span id="d-rate">0%</span> <span data-i18n="dash_savings_rate">savings rate</span></div></div>
   </div>
-  <!-- Insights -->
   <div id="d-insights" style="display:flex;gap:var(--sp3);flex-wrap:wrap;margin-bottom:var(--sp6)" aria-live="polite"></div>
-  <!-- 2-col -->
   <div class="grid-2">
     <div class="panel">
       <div class="panel-head">
-        <h2 class="panel-title">Recent Transactions</h2>
+        <h2 class="panel-title" data-i18n="dash_recent_tx">Recent Transactions</h2>
         <div style="display:flex;gap:var(--sp3);align-items:center;flex-wrap:wrap">
           <div class="tabs" role="tablist">
-            <button class="tab active" role="tab" onclick="App.setDashFilt('all',this)">All</button>
-            <button class="tab" role="tab" onclick="App.setDashFilt('income',this)">Income</button>
-            <button class="tab" role="tab" onclick="App.setDashFilt('expense',this)">Expense</button>
+            <button class="tab active" role="tab" onclick="App.setDashFilt('all',this)" data-i18n="all">All</button>
+            <button class="tab" role="tab" onclick="App.setDashFilt('income',this)" data-i18n="lbl_income">Income</button>
+            <button class="tab" role="tab" onclick="App.setDashFilt('expense',this)" data-i18n="lbl_expense">Expense</button>
           </div>
-          <button class="btn btn-ghost btn-sm hide-mobile" onclick="App.goTo('history')">View all →</button>
+          <button class="btn btn-ghost btn-sm hide-mobile" onclick="App.goTo('history')" data-i18n="dash_view_all">View all →</button>
         </div>
       </div>
       <div class="tx-scroll"><table class="tx-table" aria-label="Recent transactions">
-        <thead><tr><th scope="col">Description</th><th scope="col" class="hide-mobile">Category</th><th scope="col" class="hide-mobile">Date</th><th scope="col">Amount</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+        <thead><tr><th scope="col" data-i18n="lbl_description">Description</th><th scope="col" class="hide-mobile" data-i18n="lbl_category">Category</th><th scope="col" class="hide-mobile" data-i18n="hist_sort_date">Date</th><th scope="col" data-i18n="lbl_amount">Amount</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
         <tbody id="d-tx-body"></tbody>
-      </table>
-      <div class="empty" id="d-empty" style="display:none"><div class="empty-ico">🪙</div><p>No transactions yet.<br>Add your first one!</p><button class="btn btn-pri" onclick="App.openAdd()">+ Add Transaction</button></div>
-      </div>
+      </table></div>
+      <div class="empty" id="d-empty" style="display:none"><div class="empty-ico">🪙</div><p data-i18n="dash_no_tx">No transactions yet.</p><button class="btn btn-pri" onclick="App.openAdd()" data-i18n="dash_add_first">+ Add Transaction</button></div>
     </div>
     <div class="col-stack">
       <!-- Quick Add -->
       <div class="panel">
-        <div class="panel-head"><h2 class="panel-title">Quick Add</h2><span style="font-size:10px;color:var(--t2);font-family:var(--ff-mono)" aria-hidden="true">Ctrl+K</span></div>
+        <div class="panel-head"><h2 class="panel-title" data-i18n="dash_quick_add">Quick Add</h2><span style="font-size:10px;color:var(--t2);font-family:var(--ff-mono)" aria-hidden="true">Ctrl+K</span></div>
         <div class="panel-body-sm">
           <div class="type-toggle" role="group">
-            <button class="type-btn income on" id="q-inc" onclick="App.setQuickType('income')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>Income</button>
-            <button class="type-btn expense" id="q-exp" onclick="App.setQuickType('expense')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>Expense</button>
+            <button class="type-btn income on" id="q-inc" onclick="App.setQuickType('income')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg><span data-i18n="lbl_income">Income</span></button>
+            <button class="type-btn expense" id="q-exp" onclick="App.setQuickType('expense')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg><span data-i18n="lbl_expense">Expense</span></button>
           </div>
-          <div class="fg"><label class="lbl" for="q-amt">Amount</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="q-amt" placeholder="0.00" min="0" step="0.01" inputmode="decimal" aria-label="Amount"/></div></div>
-          <div class="fg"><label class="lbl" for="q-desc">Description</label><input class="inp" type="text" id="q-desc" placeholder="e.g. Grocery shopping…" maxlength="100" autocomplete="off"/></div>
-          <div class="fg"><label class="lbl" for="q-cat">Category</label><select class="sel" id="q-cat"></select></div>
-          <div class="fg"><label class="lbl" for="q-date">Date</label><input class="inp" type="date" id="q-date"/></div>
-          <button class="btn btn-pri btn-full" onclick="App.quickAdd()" style="margin-top:4px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Save Transaction</button>
+          <div class="fg"><label class="lbl" for="q-amt" data-i18n="lbl_amount">Amount</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="q-amt" placeholder="0.00" min="0" step="0.01" inputmode="decimal" aria-label="Amount"/></div></div>
+          <div class="fg"><label class="lbl" for="q-desc" data-i18n="lbl_description">Description</label><input class="inp" type="text" id="q-desc" placeholder="e.g. Grocery shopping…" maxlength="100" autocomplete="off"/></div>
+          <div class="fg"><label class="lbl" for="q-cat" data-i18n="lbl_category">Category</label><select class="sel" id="q-cat"></select></div>
+          <div class="fg"><label class="lbl" for="q-date" data-i18n="lbl_date">Date</label><input class="inp" type="date" id="q-date"/></div>
+          <button class="btn btn-pri btn-full" onclick="App.quickAdd()" style="margin-top:4px" data-i18n="lbl_save">Save Transaction</button>
         </div>
       </div>
       <!-- 7-day chart -->
       <div class="panel">
-        <div class="panel-head"><h2 class="panel-title">Last 7 Days</h2></div>
+        <div class="panel-head"><h2 class="panel-title" data-i18n="dash_last7">Last 7 Days</h2></div>
         <div class="panel-body-sm">
-          <div id="d-chart" role="img" aria-label="7-day chart"></div>
-          <div class="chart-leg"><div class="leg-item"><div class="leg-dot" style="background:var(--grn)"></div>Income</div><div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Expense</div></div>
+          <div id="d-chart" role="img" aria-label="7-day bar chart"></div>
+          <div class="chart-leg"><div class="leg-item"><div class="leg-dot" style="background:var(--grn)"></div><span data-i18n="lbl_income">Income</span></div><div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div><span data-i18n="lbl_expense">Expense</span></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ HISTORY ══════════ -->
+<!-- ════ HISTORY ════ -->
 <section class="page" id="page-history" aria-labelledby="h-h1">
   <div class="ph">
-    <div><div class="ph-eye">Ledger</div><h1 class="ph-title" id="h-h1">Transaction <em>History</em></h1><p class="ph-sub" id="h-cnt" aria-live="polite"></p></div>
+    <div><div class="ph-eye" data-i18n="hist_eyebrow">Ledger</div><h1 class="ph-title" id="h-h1">Transaction <em>History</em></h1><p class="ph-sub" id="h-cnt" aria-live="polite"></p></div>
     <div class="ph-acts">
-      <div class="search-wrap hide-mobile" style="max-width:220px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="inp search-inp" type="search" id="hist-search" placeholder="Search…" aria-label="Search transactions"/></div>
-      <button class="btn btn-ghost hide-mobile" onclick="App.exportCSV()">⬇ CSV</button>
-      <button class="btn btn-pri" onclick="App.openAdd()">+ Add</button>
+      <div class="search-wrap hide-mobile" style="max-width:220px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="inp search-inp" type="search" id="hist-search" data-i18n-placeholder="hist_search" placeholder="Search…" aria-label="Search transactions"/></div>
+      <button class="btn btn-ghost btn-sm hide-mobile" id="bulk-select-btn" onclick="App.toggleBulkSelect()">☑ Select</button>
+      <button class="btn btn-ghost hide-mobile" onclick="App.exportCSV()" data-i18n="set_export_csv">⬇ CSV</button>
+      <button class="btn btn-pri" onclick="App.openAdd()">+ <span data-i18n="add">Add</span></button>
     </div>
   </div>
   <!-- Mobile search -->
   <div id="hist-search-m-wrap" style="margin-bottom:var(--sp4)">
-    <div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="inp search-inp" type="search" id="hist-search-m" placeholder="Search…" style="width:100%" aria-label="Search"/></div>
+    <div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="inp search-inp" type="search" id="hist-search-m" data-i18n-placeholder="hist_search" placeholder="Search…" style="width:100%" aria-label="Search"/></div>
+  </div>
+  <!-- Bulk bar -->
+  <div class="bulk-bar" id="bulk-bar" role="toolbar">
+    <span id="bulk-count" style="font-size:13px;font-weight:500;color:var(--t1)"></span>
+    <div style="display:flex;gap:var(--sp2)">
+      <button class="btn btn-ghost btn-sm" onclick="App.toggleBulkSelect()" data-i18n="btn_cancel">Cancel</button>
+      <button class="btn btn-danger btn-sm" id="bulk-delete-btn" onclick="App.bulkDelete()" data-i18n="btn_delete">Delete</button>
+    </div>
   </div>
   <!-- Summary -->
   <div class="kpi-grid" style="margin-bottom:var(--sp5)">
-    <div class="kc kc-grn" style="padding:var(--sp4) var(--sp5)"><div class="kpi-lbl">Total Income</div><div class="kpi-val pos" style="font-size:18px" id="h-inc">—</div></div>
-    <div class="kc kc-red" style="padding:var(--sp4) var(--sp5)"><div class="kpi-lbl">Total Expenses</div><div class="kpi-val neg" style="font-size:18px" id="h-exp">—</div></div>
-    <div class="kc kc-acc" style="padding:var(--sp4) var(--sp5)"><div class="kpi-lbl">Net Balance</div><div class="kpi-val acc" style="font-size:18px" id="h-bal">—</div></div>
+    <div class="kc kc-grn" style="padding:var(--sp4) var(--sp5)"><div class="kpi-lbl" data-i18n="hist_total_income">Total Income</div><div class="kpi-val pos" style="font-size:18px" id="h-inc">—</div></div>
+    <div class="kc kc-red" style="padding:var(--sp4) var(--sp5)"><div class="kpi-lbl" data-i18n="hist_total_exp">Total Expenses</div><div class="kpi-val neg" style="font-size:18px" id="h-exp">—</div></div>
+    <div class="kc kc-acc" style="padding:var(--sp4) var(--sp5)"><div class="kpi-lbl" data-i18n="hist_net_bal">Net Balance</div><div class="kpi-val acc" style="font-size:18px" id="h-bal">—</div></div>
   </div>
   <div class="panel">
     <div class="panel-head">
-      <h2 class="panel-title">All Transactions</h2>
+      <h2 class="panel-title" data-i18n="hist_all_tx">All Transactions</h2>
       <div class="tabs" role="tablist">
-        <button class="tab active" role="tab" onclick="App.setHistFilt('all',this)">All</button>
-        <button class="tab" role="tab" onclick="App.setHistFilt('income',this)">Income</button>
-        <button class="tab" role="tab" onclick="App.setHistFilt('expense',this)">Expense</button>
+        <button class="tab active" role="tab" onclick="App.setHistFilt('all',this)" data-i18n="all">All</button>
+        <button class="tab" role="tab" onclick="App.setHistFilt('income',this)" data-i18n="lbl_income">Income</button>
+        <button class="tab" role="tab" onclick="App.setHistFilt('expense',this)" data-i18n="lbl_expense">Expense</button>
       </div>
     </div>
     <div class="tx-scroll"><table class="tx-table" aria-label="All transactions">
-      <thead><tr><th scope="col">Description</th><th scope="col" class="hide-mobile">Category</th><th scope="col" class="hide-mobile">Date</th><th scope="col">Amount</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+      <thead><tr>
+        <th scope="col"><button class="sort-btn" data-sort="date" data-i18n="hist_sort_date">Date</button></th>
+        <th scope="col" class="hide-mobile" data-i18n="lbl_category">Category</th>
+        <th scope="col" class="hide-mobile"><button class="sort-btn" data-sort="date">Date</button></th>
+        <th scope="col"><button class="sort-btn" data-sort="amount" data-i18n="hist_sort_amount">Amount</button></th>
+        <th scope="col"><span class="sr-only">Actions</span></th>
+      </tr></thead>
       <tbody id="h-tx-body"></tbody>
-    </table>
-    <div class="empty" id="h-empty" style="display:none"><div class="empty-ico">🔍</div><p>No transactions found.</p></div>
-    </div>
+    </table></div>
+    <div id="h-showing"></div>
+    <button id="h-loadmore" onclick="App.loadMoreHistory()" data-i18n="hist_load_more">Load more</button>
+    <div class="empty" id="h-empty" style="display:none"><div class="empty-ico">🔍</div><p data-i18n="hist_no_tx">No transactions found.</p></div>
   </div>
 </section>
 
-<!-- ══════════ BUDGET ══════════ -->
+<!-- ════ BUDGET ════ -->
 <section class="page" id="page-budget" aria-labelledby="b-h1">
   <div class="ph">
-    <div><div class="ph-eye">Planning</div><h1 class="ph-title" id="b-h1">Budget <em>Planner</em></h1><p class="ph-sub">Monthly spending limits</p></div>
-    <div class="ph-acts"><button class="btn btn-pri" onclick="App.openBudgetModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Budget</button></div>
+    <div><div class="ph-eye" data-i18n="bud_eyebrow">Planning</div><h1 class="ph-title" id="b-h1">Budget <em>Planner</em></h1><p class="ph-sub" id="b-days-left"></p></div>
+    <div class="ph-acts"><button class="btn btn-pri" onclick="App.openBudgetModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span data-i18n="bud_add">Add Budget</span></button></div>
   </div>
   <div class="kpi-grid">
-    <div class="kc kc-acc d1"><div class="kpi-icon">🎯</div><div class="kpi-lbl">Total Budget</div><div class="kpi-val acc" id="b-total">—</div><div class="kpi-meta">Monthly limit</div></div>
-    <div class="kc kc-red d2"><div class="kpi-icon">💸</div><div class="kpi-lbl">Spent</div><div class="kpi-val neg" id="b-spent">—</div><div class="kpi-meta">This month</div></div>
-    <div class="kc kc-grn d3"><div class="kpi-icon">✅</div><div class="kpi-lbl">Remaining</div><div class="kpi-val pos" id="b-rem">—</div><div class="kpi-meta">Available</div></div>
+    <div class="kc kc-acc d1"><div class="kpi-icon">🎯</div><div class="kpi-lbl" data-i18n="bud_total">Total Budget</div><div class="kpi-val acc" id="b-total">—</div><div class="kpi-meta" data-i18n="bud_monthly">Monthly limit</div></div>
+    <div class="kc kc-red d2"><div class="kpi-icon">💸</div><div class="kpi-lbl" data-i18n="bud_spent">Spent</div><div class="kpi-val neg" id="b-spent">—</div><div class="kpi-meta" data-i18n="bud_this_month">This month</div></div>
+    <div class="kc kc-grn d3"><div class="kpi-icon">✅</div><div class="kpi-lbl" data-i18n="bud_remaining">Remaining</div><div class="kpi-val pos" id="b-rem">—</div><div class="kpi-meta" data-i18n="bud_available">Available</div></div>
   </div>
   <div class="panel" style="margin-bottom:var(--sp6)">
-    <div class="panel-head"><h2 class="panel-title">Overall Progress</h2><span id="b-pct" style="font-family:var(--ff-mono);font-size:14px;font-weight:700;color:var(--t1)" aria-live="polite">0%</span></div>
+    <div class="panel-head"><h2 class="panel-title" data-i18n="bud_overall">Overall Progress</h2><span id="b-pct" style="font-family:var(--ff-mono);font-size:14px;font-weight:700;color:var(--t1)" aria-live="polite">0%</span></div>
     <div class="panel-body-sm"><div class="prog-track" style="height:10px" role="progressbar"><div class="prog-fill safe" id="b-fill" style="width:0%"></div></div></div>
   </div>
-  <div class="panel">
-    <div class="panel-head"><h2 class="panel-title">Category Budgets</h2><button class="btn btn-ghost btn-sm" onclick="App.openBudgetModal()">+ Add</button></div>
-    <div class="panel-body"><div id="b-list"></div></div>
-  </div>
+  <div class="panel"><div class="panel-head"><h2 class="panel-title" data-i18n="bud_categories">Category Budgets</h2><button class="btn btn-ghost btn-sm" onclick="App.openBudgetModal()">+ <span data-i18n="add">Add</span></button></div><div class="panel-body"><div id="b-list"></div></div></div>
 </section>
 
-<!-- ══════════ REPORTS ══════════ -->
+<!-- ════ REPORTS ════ -->
 <section class="page" id="page-reports" aria-labelledby="r-h1">
   <div class="ph">
-    <div><div class="ph-eye">Insights</div><h1 class="ph-title" id="r-h1">Financial <em>Reports</em></h1></div>
-    <div class="ph-acts hide-mobile">
-      <button class="btn btn-ghost" onclick="App.exportCSV()">⬇ Export CSV</button>
+    <div><div class="ph-eye" data-i18n="rpt_eyebrow">Insights</div><h1 class="ph-title" id="r-h1">Financial <em>Reports</em></h1></div>
+    <div class="ph-acts">
+      <button class="btn btn-ghost hide-mobile" onclick="App.rptPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span data-i18n="rpt_generate_pdf">PDF Report</span>
+      </button>
+      <button class="btn btn-ghost hide-mobile" onclick="App.exportCSV()" data-i18n="set_export_csv">⬇ CSV</button>
     </div>
   </div>
   <div class="kpi-grid">
-    <div class="kc kc-red  d1"><div class="kpi-icon">📅</div><div class="kpi-lbl">Avg Daily Spend</div><div class="kpi-val neg" id="r-avg">—</div><div class="kpi-meta">This month</div></div>
-    <div class="kc kc-grn  d2"><div class="kpi-icon">📊</div><div class="kpi-lbl">Savings Rate</div><div class="kpi-val pos" id="r-rate">—</div><div class="kpi-meta" id="r-exp-trend"></div></div>
-    <div class="kc kc-acc  d3"><div class="kpi-icon">🏆</div><div class="kpi-lbl">Top Expense</div><div class="kpi-val acc" style="font-size:16px" id="r-top-cat">—</div><div class="kpi-meta" id="r-top-amt"></div></div>
-    <div class="kc kc-pur  d4"><div class="kpi-icon">💎</div><div class="kpi-lbl">Net Worth</div><div class="kpi-val pur" id="r-worth">—</div><div class="kpi-meta">All-time</div></div>
+    <div class="kc kc-red  d1"><div class="kpi-icon">📅</div><div class="kpi-lbl" data-i18n="rpt_avg_daily">Avg Daily Spend</div><div class="kpi-val neg" id="r-avg">—</div><div class="kpi-meta" data-i18n="dash_this_month">This month</div></div>
+    <div class="kc kc-grn  d2"><div class="kpi-icon">📊</div><div class="kpi-lbl" data-i18n="rpt_savings">Savings Rate</div><div class="kpi-val pos" id="r-rate">—</div><div class="kpi-meta" id="r-inc-trend"></div></div>
+    <div class="kc kc-acc  d3"><div class="kpi-icon">🏆</div><div class="kpi-lbl" data-i18n="rpt_top_expense">Top Expense</div><div class="kpi-val acc" style="font-size:16px" id="r-top-cat">—</div><div class="kpi-meta" id="r-top-amt"></div></div>
+    <div class="kc kc-pur  d4"><div class="kpi-icon">💎</div><div class="kpi-lbl" data-i18n="rpt_net_worth">Net Worth</div><div class="kpi-val pur" id="r-worth">—</div><div class="kpi-meta">All-time balance</div></div>
   </div>
-  <!-- Month nav + mini stats -->
+  <!-- Month nav -->
   <div class="panel" style="margin-bottom:var(--sp6)">
     <div class="panel-head">
-      <h2 class="panel-title">Monthly Deep Dive</h2>
-      <div class="month-nav">
-        <button onclick="App.rptPrevMonth()" aria-label="Previous month">‹</button>
-        <span class="month-lbl" id="rpt-month-lbl"></span>
-        <button onclick="App.rptNextMonth()" aria-label="Next month">›</button>
+      <h2 class="panel-title" data-i18n="rpt_month_dive">Monthly Deep Dive</h2>
+      <div style="display:flex;align-items:center;gap:var(--sp4);flex-wrap:wrap">
+        <div class="month-nav"><button onclick="App.rptPrev()" aria-label="Previous month">‹</button><span class="month-lbl" id="rpt-month-lbl"></span><button onclick="App.rptNext()" aria-label="Next month">›</button></div>
+        <button class="btn btn-ghost btn-sm hide-desktop" onclick="App.rptPDF()">🖨 PDF</button>
       </div>
     </div>
     <div class="panel-body">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp5);margin-bottom:var(--sp5)">
-        <div><div style="font-size:11px;color:var(--t2);margin-bottom:4px">INCOME</div><div style="font-family:var(--ff-mono);font-size:16px;font-weight:700;color:var(--grn)" id="r-inc">—</div><div id="r-inc-trend" style="font-size:11px;margin-top:2px"></div></div>
-        <div><div style="font-size:11px;color:var(--t2);margin-bottom:4px">EXPENSE</div><div style="font-family:var(--ff-mono);font-size:16px;font-weight:700;color:var(--red)" id="r-exp">—</div></div>
+        <div><div style="font-size:11px;color:var(--t2);margin-bottom:4px" data-i18n="dash_income">INCOME</div><div style="font-family:var(--ff-mono);font-size:16px;font-weight:700;color:var(--grn)" id="r-inc">—</div></div>
+        <div><div style="font-size:11px;color:var(--t2);margin-bottom:4px" data-i18n="dash_expenses">EXPENSE</div><div style="font-family:var(--ff-mono);font-size:16px;font-weight:700;color:var(--red)" id="r-exp">—</div></div>
       </div>
-      <div style="font-size:11.5px;color:var(--t2);margin-bottom:var(--sp4)">Income by source</div>
+      <div style="font-size:11.5px;color:var(--t2);margin-bottom:var(--sp4)" data-i18n="rpt_income_breakdown">Income by source</div>
       <div id="r-inc-breakdown"></div>
     </div>
   </div>
-  <div class="grid-2">
+  <div class="grid-2" style="margin-bottom:var(--sp6)">
     <div class="panel">
-      <div class="panel-head"><h2 class="panel-title">6-Month Overview</h2></div>
-      <div class="panel-body"><div id="r-6m-chart" role="img" aria-label="6-month chart"></div><div class="chart-leg"><div class="leg-item"><div class="leg-dot" style="background:var(--grn)"></div>Income</div><div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Expense</div></div></div>
+      <div class="panel-head"><h2 class="panel-title">12-Month Overview</h2></div>
+      <div class="panel-body">
+        <div id="r-bar-chart" role="img" aria-label="12-month bar chart"></div>
+        <div class="chart-leg"><div class="leg-item"><div class="leg-dot" style="background:var(--grn)"></div><span data-i18n="dash_income">Income</span></div><div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div><span data-i18n="dash_expenses">Expenses</span></div></div>
+      </div>
     </div>
     <div class="panel">
-      <div class="panel-head"><h2 class="panel-title">Expense Breakdown</h2></div>
+      <div class="panel-head"><h2 class="panel-title" data-i18n="rpt_expense_breakdown">Expense Breakdown</h2></div>
       <div class="panel-body"><div id="r-donut"></div></div>
     </div>
   </div>
+  <!-- 30-day trend -->
+  <div class="panel" style="margin-bottom:var(--sp6)">
+    <div class="panel-head"><h2 class="panel-title">30-Day Spending Trend</h2></div>
+    <div class="panel-body"><div id="r-trend-chart" role="img" aria-label="30-day spending trend"></div></div>
+  </div>
   <!-- Heatmap -->
-  <div class="panel" style="margin-top:var(--sp6)">
-    <div class="panel-head"><h2 class="panel-title">Spending Heatmap</h2><span style="font-size:11px;color:var(--t2)">Last 52 weeks</span></div>
-    <div class="panel-body" style="overflow-x:auto"><div id="r-heatmap"></div></div>
+  <div class="panel">
+    <div class="panel-head"><h2 class="panel-title" data-i18n="rpt_heatmap">Spending Heatmap</h2><span style="font-size:11px;color:var(--t2)" data-i18n="rpt_52w">Last 52 weeks</span></div>
+    <div class="panel-body"><div id="r-heatmap"></div></div>
   </div>
 </section>
 
-<!-- ══════════ SETTINGS ══════════ -->
+<!-- ════ SETTINGS ════ -->
 <section class="page" id="page-settings" aria-labelledby="s-h1">
-  <div class="ph"><div><div class="ph-eye">Preferences</div><h1 class="ph-title" id="s-h1">App <em>Settings</em></h1></div></div>
+  <div class="ph"><div><div class="ph-eye" data-i18n="set_eyebrow">Preferences</div><h1 class="ph-title" id="s-h1">App <em>Settings</em></h1></div></div>
 
   <!-- Install -->
   <div class="panel" style="margin-bottom:var(--sp6);border-color:rgba(240,193,75,.2)">
-    <div class="panel-head"><h2 class="panel-title">📱 Install App</h2></div>
+    <div class="panel-head"><h2 class="panel-title">📱 <span data-i18n="set_install">Install App</span></h2></div>
     <div class="panel-body">
-      <p style="font-size:13.5px;color:var(--t1);margin-bottom:var(--sp5);line-height:1.6">Install CashFlow on your home screen for a native app feel — works offline, loads instantly, no browser UI.</p>
-      <div style="display:flex;gap:var(--sp3);flex-wrap:wrap;align-items:center">
-        <button class="btn btn-pri" onclick="App.triggerInstall()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Install CashFlow</button>
-        <span style="font-size:12px;color:var(--t2)">Or use "Add to Home Screen" in your browser</span>
-      </div>
+      <p style="font-size:13.5px;color:var(--t1);margin-bottom:var(--sp5);line-height:1.6" data-i18n="set_install_desc">Install on your home screen for a native app feel.</p>
+      <button class="btn btn-pri" onclick="App.triggerInstall()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span data-i18n="set_install_btn">Install CashFlow</span></button>
     </div>
   </div>
 
   <!-- Profile -->
   <div class="panel" style="margin-bottom:var(--sp6)">
-    <div class="panel-head"><h2 class="panel-title">Profile</h2></div>
+    <div class="panel-head"><h2 class="panel-title" data-i18n="set_profile">Profile</h2></div>
     <div class="panel-body">
-      <div class="fg"><label class="lbl" for="s-name">Your Name</label><input class="inp" type="text" id="s-name" placeholder="e.g. Faruk Islam" maxlength="50"/></div>
-      <div class="fg"><label class="lbl" for="s-currency">Currency Symbol</label>
+      <div class="fg"><label class="lbl" for="s-name" data-i18n="set_name">Your Name</label><input class="inp" type="text" id="s-name" placeholder="e.g. Faruk Islam" maxlength="50"/></div>
+      <div class="fg"><label class="lbl" for="s-currency" data-i18n="set_currency">Currency</label>
         <select class="sel" id="s-currency">
           <option value="৳">৳ — Bangladeshi Taka (BDT)</option>
           <option value="$">$ — US Dollar (USD)</option>
@@ -311,139 +322,160 @@
           <option value="₦">₦ — Nigerian Naira (NGN)</option>
         </select>
       </div>
-      <button class="btn btn-pri" onclick="App.saveSettings()">Save Changes</button>
+      <button class="btn btn-pri" onclick="App.saveSettings()" data-i18n="set_save">Save Changes</button>
     </div>
+  </div>
+
+  <!-- Language -->
+  <div class="panel" style="margin-bottom:var(--sp6)">
+    <div class="panel-head"><h2 class="panel-title">🌐 <span data-i18n="set_language">Language</span></h2><span style="font-size:12px;color:var(--t2)" data-i18n="set_language_desc">App display language</span></div>
+    <div class="panel-body"><div class="lang-grid" id="lang-selector"></div></div>
   </div>
 
   <!-- Preferences -->
   <div class="panel" style="margin-bottom:var(--sp6)">
-    <div class="panel-head"><h2 class="panel-title">Preferences</h2></div>
+    <div class="panel-head"><h2 class="panel-title" data-i18n="set_prefs">Preferences</h2></div>
     <div class="panel-body" style="padding-top:var(--sp3)">
-      <div class="set-row"><div><div class="set-title">Budget Alerts</div><div class="set-desc">Highlight categories near their limit</div></div><button class="toggle on" id="tog-notifications" onclick="App.toggleSetting('notifications',this)" role="switch" aria-checked="true"></button></div>
-      <div class="set-row"><div><div class="set-title">Compact View</div><div class="set-desc">Denser transaction rows</div></div><button class="toggle" id="tog-compactView" onclick="App.toggleSetting('compactView',this)" role="switch" aria-checked="false"></button></div>
-      <div class="set-row"><div><div class="set-title">Smart Insights</div><div class="set-desc">Show spending insights on dashboard</div></div><button class="toggle on" id="tog-showInsights" onclick="App.toggleSetting('showInsights',this)" role="switch" aria-checked="true"></button></div>
+      <div class="set-row"><div><div class="set-title" data-i18n="set_notif">Budget Alerts</div><div class="set-desc" data-i18n="set_notif_desc">Highlight categories near their limit</div></div><button class="toggle on" id="tog-notifications" onclick="App.toggleSetting('notifications',this)" role="switch" aria-checked="true"></button></div>
+      <div class="set-row"><div><div class="set-title" data-i18n="set_compact">Compact View</div><div class="set-desc" data-i18n="set_compact_desc">Denser transaction rows</div></div><button class="toggle" id="tog-compactView" onclick="App.toggleSetting('compactView',this)" role="switch" aria-checked="false"></button></div>
+      <div class="set-row"><div><div class="set-title" data-i18n="set_insights">Smart Insights</div><div class="set-desc" data-i18n="set_insights_desc">Show spending insights on dashboard</div></div><button class="toggle on" id="tog-showInsights" onclick="App.toggleSetting('showInsights',this)" role="switch" aria-checked="true"></button></div>
     </div>
   </div>
 
   <!-- Recurring -->
   <div class="panel" style="margin-bottom:var(--sp6)">
-    <div class="panel-head"><h2 class="panel-title">↻ Recurring Transactions</h2><button class="btn btn-ghost btn-sm" onclick="App.openRecurModal()">+ Add</button></div>
+    <div class="panel-head"><h2 class="panel-title">↻ <span data-i18n="set_recurring">Recurring Transactions</span></h2><button class="btn btn-ghost btn-sm" onclick="App.openRecurModal()">+ <span data-i18n="add">Add</span></button></div>
     <div class="panel-body"><div id="recur-list"></div></div>
   </div>
 
   <!-- Goals -->
   <div class="panel" style="margin-bottom:var(--sp6)">
-    <div class="panel-head"><h2 class="panel-title">🏆 Savings Goals</h2><button class="btn btn-ghost btn-sm" onclick="App.openGoalModal()">+ Add Goal</button></div>
+    <div class="panel-head"><h2 class="panel-title">🏆 <span data-i18n="set_goals">Savings Goals</span></h2><button class="btn btn-ghost btn-sm" onclick="App.openGoalModal()">+ <span data-i18n="add">Add</span></button></div>
     <div class="panel-body"><div id="goals-list"></div></div>
   </div>
 
   <!-- Data -->
   <div class="panel" style="margin-bottom:var(--sp6)">
-    <div class="panel-head"><h2 class="panel-title">Data Management</h2></div>
+    <div class="panel-head"><h2 class="panel-title" data-i18n="set_data">Data Management</h2></div>
     <div class="panel-body">
+      <div id="s-storage"></div>
+      <p style="font-size:12.5px;color:var(--t1);margin-bottom:var(--sp3)" id="s-count"></p>
       <div style="background:var(--s2);border:1px solid var(--b0);border-radius:var(--r2);padding:var(--sp4) var(--sp5);margin-bottom:var(--sp5)">
-        <div style="font-size:12.5px;color:var(--t1);line-height:1.6">🔒 <strong style="color:var(--t0)">100% Private.</strong> All data stored locally in your browser. Nothing sent to any server.</div>
-        <div style="margin-top:var(--sp3);font-size:12px;color:var(--t2)">Storage: <strong style="color:var(--t1)" id="s-size">—</strong> · <span id="s-count">—</span></div>
+        <div style="font-size:12.5px;color:var(--t1);line-height:1.6" data-i18n="set_privacy">🔒 100% Private. All data stored locally in your browser.</div>
       </div>
-      <div style="display:flex;gap:var(--sp3);flex-wrap:wrap">
-        <button class="btn btn-ghost" onclick="App.exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export CSV</button>
-        <button class="btn btn-ghost" onclick="App.exportJSON()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Backup JSON</button>
-        <button class="btn btn-ghost" onclick="App.importJSON()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Restore JSON</button>
-        <button class="btn btn-danger" onclick="App.clearData()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Clear All</button>
+      <div style="display:flex;gap:var(--sp3);flex-wrap:wrap;margin-bottom:var(--sp5)">
+        <button class="btn btn-ghost" onclick="App.exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span data-i18n="set_export_csv">Export CSV</span></button>
+        <button class="btn btn-ghost" onclick="App.exportJSON()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span data-i18n="set_backup_json">Backup JSON</span></button>
+        <button class="btn btn-ghost" onclick="App.importJSON()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span data-i18n="set_restore">Restore JSON</span></button>
+        <button class="btn btn-danger" onclick="App.clearData()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg><span data-i18n="set_clear">Clear All</span></button>
       </div>
+      <!-- Auto-backups -->
+      <div style="font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t2);margin-bottom:var(--sp3)" data-i18n="set_restore_point">Restore Points</div>
+      <div id="backup-list"></div>
     </div>
   </div>
 
   <!-- About -->
   <div class="panel">
-    <div class="panel-head"><h2 class="panel-title">About</h2></div>
+    <div class="panel-head"><h2 class="panel-title" data-i18n="set_about">About</h2></div>
     <div class="panel-body">
-      <p style="font-size:13.5px;color:var(--t1);line-height:1.7"><strong style="color:var(--t0)">CashFlow PWA v3.0</strong><br/>Personal cash management — offline-first, zero tracking, zero backend.<br/>Vanilla HTML · CSS · JavaScript · Service Worker<br/><span style="color:var(--t2)"><br/>⌨️ <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:11px">Ctrl+K</code> Add &nbsp;·&nbsp; <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:11px">Esc</code> Close &nbsp;·&nbsp; <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:11px">1-5</code> Navigate<br/><br/>© 2025 <a href="https://github.com/farukislamyt" target="_blank" rel="noopener noreferrer" style="color:var(--acc);text-decoration:underline">Faruk Islam</a></span></p>
+      <p style="font-size:13.5px;color:var(--t1);line-height:1.7"><strong style="color:var(--t0)" data-i18n="set_version">CashFlow PWA v4.0</strong><br/><span data-i18n="set_about_desc">Personal cash management — offline-first, zero tracking, zero backend.</span><br/>Vanilla HTML · CSS · JavaScript · Service Worker<br/><span style="color:var(--t2)"><br/>⌨️ <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:11px">Ctrl+K</code> Add &nbsp;·&nbsp; <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:11px">Esc</code> Close &nbsp;·&nbsp; <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:11px">1–5</code> Navigate<br/><br/>© 2025 <a href="https://github.com/farukislamyt" target="_blank" rel="noopener noreferrer" style="color:var(--acc)">Faruk Islam</a></span></p>
     </div>
   </div>
 </section>
 
 </div></main>
-</div><!-- /#app -->
+</div>
 
-<!-- ═════ BOTTOM NAV ═════ -->
+<!-- ════ BOTTOM NAV ════ -->
 <nav class="bnav" role="navigation" aria-label="Bottom navigation">
 <div class="bnav-inner">
   <button class="bn active" data-page="dashboard" onclick="App.goTo('dashboard')" aria-current="page" aria-label="Dashboard">
-    <div style="position:relative"><svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>Home</button>
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Home</button>
   <button class="bn" data-page="history" onclick="App.goTo('history')" aria-label="History">
-    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>History</button>
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>List</button>
   <button class="bn" data-page="budget" onclick="App.goTo('budget')" aria-label="Budget">
     <div style="position:relative"><svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg><span class="bn-dot" id="bn-bud-dot" aria-hidden="true"></span></div>Budget</button>
   <button class="bn" data-page="reports" onclick="App.goTo('reports')" aria-label="Reports">
     <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Reports</button>
   <button class="bn" data-page="settings" onclick="App.goTo('settings')" aria-label="Settings">
-    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</button>
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>More</button>
 </div>
 </nav>
 
-<!-- ═════ MODALS ═════ -->
+<!-- ════ MODALS ════ -->
 
 <!-- Transaction -->
 <div class="modal-overlay" id="tx-modal" onclick="Modal.onBg(event,'tx-modal')" role="dialog" aria-modal="true" aria-labelledby="m-title">
 <div class="modal">
-  <div class="modal-head"><span class="modal-title" id="m-title">Add Transaction</span><button class="modal-close" onclick="Modal.close('tx-modal')" aria-label="Close">✕</button></div>
+  <div class="modal-head"><span class="modal-title" id="m-title" data-i18n="add_transaction">Add Transaction</span><button class="modal-close" onclick="Modal.close('tx-modal')" aria-label="Close">✕</button></div>
   <div class="modal-body">
-    <div class="type-toggle" role="group"><button class="type-btn income on" id="m-inc" onclick="App.setModalType('income')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>Income</button><button class="type-btn expense" id="m-exp" onclick="App.setModalType('expense')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>Expense</button></div>
-    <div class="fg"><label class="lbl" for="m-amt">Amount *</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="m-amt" placeholder="0.00" min="0" step="0.01" inputmode="decimal" aria-label="Amount"/></div></div>
-    <div class="fg"><label class="lbl" for="m-desc">Description *</label><input class="inp" type="text" id="m-desc" placeholder="e.g. Monthly salary…" maxlength="100" autocomplete="off"/></div>
-    <div class="fg"><label class="lbl" for="m-cat">Category</label><select class="sel" id="m-cat"></select></div>
-    <div class="fg"><label class="lbl" for="m-date">Date *</label><input class="inp" type="date" id="m-date"/></div>
-    <div class="fg"><label class="lbl" for="m-note">Note <span style="text-transform:none;font-weight:400;letter-spacing:0">(optional)</span></label><input class="inp" type="text" id="m-note" placeholder="Any extra details…" maxlength="200"/></div>
-    <button class="btn btn-pri btn-full" onclick="App.submitTx()" style="margin-top:6px">Save Transaction</button>
+    <div class="type-toggle" role="group"><button class="type-btn income on" id="m-inc" onclick="App.setModalType('income')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg><span data-i18n="lbl_income">Income</span></button><button class="type-btn expense" id="m-exp" onclick="App.setModalType('expense')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg><span data-i18n="lbl_expense">Expense</span></button></div>
+    <div class="fg"><label class="lbl" for="m-amt" data-i18n="lbl_amount">Amount *</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="m-amt" placeholder="0.00" min="0" step="0.01" inputmode="decimal"/></div></div>
+    <div class="fg"><label class="lbl" for="m-desc" data-i18n="lbl_description">Description *</label><input class="inp" type="text" id="m-desc" placeholder="e.g. Monthly salary…" maxlength="100" autocomplete="off"/></div>
+    <div class="fg"><label class="lbl" for="m-cat" data-i18n="lbl_category">Category</label><select class="sel" id="m-cat"></select></div>
+    <div class="fg"><label class="lbl" for="m-date" data-i18n="lbl_date">Date *</label><input class="inp" type="date" id="m-date"/></div>
+    <div class="fg"><label class="lbl" for="m-note" data-i18n="lbl_note">Note</label><input class="inp" type="text" id="m-note" data-i18n-placeholder="lbl_note_ph" placeholder="Any extra details…" maxlength="200"/></div>
+    <button class="btn btn-pri btn-full" onclick="App.submitTx()" style="margin-top:6px" data-i18n="lbl_save">Save Transaction</button>
   </div>
 </div></div>
 
 <!-- Budget -->
 <div class="modal-overlay" id="budget-modal" onclick="Modal.onBg(event,'budget-modal')" role="dialog" aria-modal="true">
 <div class="modal">
-  <div class="modal-head"><span class="modal-title">Set Category Budget</span><button class="modal-close" onclick="Modal.close('budget-modal')" aria-label="Close">✕</button></div>
+  <div class="modal-head"><span class="modal-title" data-i18n="bud_set_limit">Set Category Budget</span><button class="modal-close" onclick="Modal.close('budget-modal')" aria-label="Close">✕</button></div>
   <div class="modal-body">
-    <div class="fg"><label class="lbl" for="bm-cat">Category</label>
+    <div class="fg"><label class="lbl" for="bm-cat" data-i18n="lbl_category">Category</label>
       <select class="sel" id="bm-cat">
         <option value="food">🍔 Food &amp; Dining</option><option value="transport">🚗 Transport</option><option value="shopping">🛍 Shopping</option><option value="health">💊 Health</option><option value="rent">🏠 Rent</option><option value="entertainment">🎮 Entertainment</option><option value="utilities">⚡ Utilities</option><option value="education">📚 Education</option><option value="other">📦 Other</option>
       </select>
     </div>
-    <div class="fg"><label class="lbl" for="bm-limit">Monthly Limit</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="bm-limit" placeholder="0.00" min="0" step="100" inputmode="decimal"/></div></div>
-    <button class="btn btn-pri btn-full" onclick="App.submitBudget()">Save Budget</button>
+    <div class="fg"><label class="lbl" for="bm-limit" data-i18n="bud_monthly_limit">Monthly Limit</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="bm-limit" placeholder="0.00" min="0" step="100" inputmode="decimal"/></div></div>
+    <button class="btn btn-pri btn-full" onclick="App.submitBudget()" data-i18n="save">Save Budget</button>
   </div>
 </div></div>
 
 <!-- Recurring -->
 <div class="modal-overlay" id="recur-modal" onclick="Modal.onBg(event,'recur-modal')" role="dialog" aria-modal="true">
 <div class="modal">
-  <div class="modal-head"><span class="modal-title">Add Recurring</span><button class="modal-close" onclick="Modal.close('recur-modal')" aria-label="Close">✕</button></div>
+  <div class="modal-head"><span class="modal-title" data-i18n="add_recurring">Add Recurring</span><button class="modal-close" onclick="Modal.close('recur-modal')" aria-label="Close">✕</button></div>
   <div class="modal-body">
-    <div class="type-toggle" role="group"><button class="type-btn income on" id="rec-inc" onclick="App.setRecType('income')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>Income</button><button class="type-btn expense" id="rec-exp" onclick="App.setRecType('expense')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>Expense</button></div>
-    <div class="fg"><label class="lbl" for="rec-amt">Amount</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="rec-amt" placeholder="0.00" min="0" step="0.01" inputmode="decimal"/></div></div>
-    <div class="fg"><label class="lbl" for="rec-desc">Description *</label><input class="inp" type="text" id="rec-desc" placeholder="e.g. Netflix, Rent…" maxlength="100" autocomplete="off"/></div>
-    <div class="fg"><label class="lbl" for="rec-cat">Category</label><select class="sel" id="rec-cat"></select></div>
-    <div class="fg"><label class="lbl" for="rec-freq">Frequency</label>
-      <select class="sel" id="rec-freq"><option value="monthly">Monthly</option><option value="weekly">Weekly</option><option value="yearly">Yearly</option></select>
+    <div class="type-toggle" role="group"><button class="type-btn income on" id="rec-inc" onclick="App.setRecType('income')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg><span data-i18n="lbl_income">Income</span></button><button class="type-btn expense" id="rec-exp" onclick="App.setRecType('expense')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg><span data-i18n="lbl_expense">Expense</span></button></div>
+    <div class="fg"><label class="lbl" for="rec-amt" data-i18n="lbl_amount">Amount</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="rec-amt" placeholder="0.00" min="0" step="0.01" inputmode="decimal"/></div></div>
+    <div class="fg"><label class="lbl" for="rec-desc" data-i18n="lbl_description">Description *</label><input class="inp" type="text" id="rec-desc" placeholder="e.g. Netflix, Rent…" maxlength="100" autocomplete="off"/></div>
+    <div class="fg"><label class="lbl" for="rec-cat" data-i18n="lbl_category">Category</label><select class="sel" id="rec-cat"></select></div>
+    <div class="fg"><label class="lbl" for="rec-freq" data-i18n="lbl_frequency">Frequency</label>
+      <select class="sel" id="rec-freq"><option value="monthly" data-i18n="lbl_monthly">Monthly</option><option value="weekly" data-i18n="lbl_weekly">Weekly</option><option value="yearly" data-i18n="lbl_yearly">Yearly</option><option value="daily" data-i18n="lbl_daily">Daily</option></select>
     </div>
-    <div class="fg"><label class="lbl" for="rec-date">Start / Next Date</label><input class="inp" type="date" id="rec-date"/></div>
-    <button class="btn btn-pri btn-full" onclick="App.submitRecur()" style="margin-top:6px">Add Recurring Entry</button>
+    <div class="fg"><label class="lbl" for="rec-date" data-i18n="lbl_start_date">Start / Next Date</label><input class="inp" type="date" id="rec-date"/></div>
+    <button class="btn btn-pri btn-full" onclick="App.submitRecur()" style="margin-top:6px" data-i18n="add_recurring_btn">Add Recurring Entry</button>
   </div>
 </div></div>
 
 <!-- Goal -->
 <div class="modal-overlay" id="goal-modal" onclick="Modal.onBg(event,'goal-modal')" role="dialog" aria-modal="true">
 <div class="modal">
-  <div class="modal-head"><span class="modal-title">Add Savings Goal</span><button class="modal-close" onclick="Modal.close('goal-modal')" aria-label="Close">✕</button></div>
+  <div class="modal-head"><span class="modal-title" data-i18n="add_goal">Add Savings Goal</span><button class="modal-close" onclick="Modal.close('goal-modal')" aria-label="Close">✕</button></div>
   <div class="modal-body">
     <div style="display:grid;grid-template-columns:60px 1fr;gap:var(--sp3);margin-bottom:14px">
-      <div><label class="lbl" for="goal-emoji">Icon</label><input class="inp" type="text" id="goal-emoji" placeholder="🎯" maxlength="2" style="text-align:center;font-size:22px;padding:8px 0"/></div>
-      <div><label class="lbl" for="goal-name">Goal Name *</label><input class="inp" type="text" id="goal-name" placeholder="e.g. Emergency Fund" maxlength="60" autocomplete="off"/></div>
+      <div><label class="lbl" for="goal-emoji" data-i18n="lbl_icon">Icon</label><input class="inp" type="text" id="goal-emoji" placeholder="🎯" maxlength="2" style="text-align:center;font-size:22px;padding:8px 0"/></div>
+      <div><label class="lbl" for="goal-name" data-i18n="lbl_goal_name">Goal Name *</label><input class="inp" type="text" id="goal-name" placeholder="e.g. Emergency Fund" maxlength="60" autocomplete="off"/></div>
     </div>
-    <div class="fg"><label class="lbl" for="goal-target">Target Amount *</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="goal-target" placeholder="0.00" min="0" step="100" inputmode="decimal"/></div></div>
-    <div class="fg"><label class="lbl" for="goal-saved">Amount Already Saved</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="goal-saved" placeholder="0.00" min="0" step="100" inputmode="decimal"/></div></div>
-    <div class="fg"><label class="lbl" for="goal-deadline">Target Date <span style="text-transform:none;font-weight:400;letter-spacing:0">(optional)</span></label><input class="inp" type="date" id="goal-deadline"/></div>
-    <button class="btn btn-pri btn-full" onclick="App.submitGoal()" style="margin-top:6px">Create Goal</button>
+    <div class="fg"><label class="lbl" for="goal-target" data-i18n="lbl_goal_target">Target Amount *</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="goal-target" placeholder="0.00" min="0" step="100" inputmode="decimal"/></div></div>
+    <div class="fg"><label class="lbl" for="goal-saved" data-i18n="lbl_goal_saved">Already Saved</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="goal-saved" placeholder="0.00" min="0" step="100" inputmode="decimal"/></div></div>
+    <div class="fg"><label class="lbl" for="goal-deadline" data-i18n="lbl_goal_deadline">Target Date</label><input class="inp" type="date" id="goal-deadline"/></div>
+    <button class="btn btn-pri btn-full" onclick="App.submitGoal()" style="margin-top:6px" data-i18n="lbl_create_goal">Create Goal</button>
+  </div>
+</div></div>
+
+<!-- Goal Add Amount -->
+<div class="modal-overlay" id="goal-add-modal" onclick="Modal.onBg(event,'goal-add-modal')" role="dialog" aria-modal="true">
+<div class="modal">
+  <div class="modal-head"><span class="modal-title">Add to Goal: <span id="goal-add-name"></span></span><button class="modal-close" onclick="Modal.close('goal-add-modal')" aria-label="Close">✕</button></div>
+  <div class="modal-body">
+    <input type="hidden" id="goal-add-id"/>
+    <div class="fg"><label class="lbl" for="goal-add-amt">Amount to Add</label><div class="amt-row"><span class="amt-sym">৳</span><input class="amt-field" type="number" id="goal-add-amt" placeholder="0.00" min="0" step="100" inputmode="decimal"/></div></div>
+    <button class="btn btn-pri btn-full" onclick="App.submitGoalAdd()">Add to Goal</button>
   </div>
 </div></div>
 
@@ -454,17 +486,17 @@
   <div class="confirm-title" id="confirm-title">Are you sure?</div>
   <p class="confirm-msg" id="confirm-msg"></p>
   <div class="confirm-acts">
-    <button class="btn btn-ghost" id="confirm-no">Cancel</button>
-    <button class="btn btn-danger" id="confirm-yes">Confirm</button>
+    <button class="btn btn-ghost" id="confirm-no" data-i18n="btn_cancel">Cancel</button>
+    <button class="btn btn-danger" id="confirm-yes" data-i18n="btn_confirm">Confirm</button>
   </div>
 </div></div>
 
 <!-- PWA Install Banner -->
 <div class="install-banner" id="install-banner" role="complementary">
   <div class="ib-icon">💸</div>
-  <div class="ib-body"><div class="ib-title">Install CashFlow</div><div class="ib-sub">Add to home screen for offline access</div></div>
+  <div class="ib-body"><div class="ib-title" data-i18n="set_install">Install CashFlow</div><div class="ib-sub" data-i18n="set_install_desc">Add to home screen for offline access</div></div>
   <div class="ib-btns">
-    <button class="ib-install" onclick="App.triggerInstall()">Install</button>
+    <button class="ib-install" onclick="App.triggerInstall()" data-i18n="set_install_btn">Install</button>
     <button class="ib-dismiss" onclick="App.dismissInstall()">✕</button>
   </div>
 </div>
@@ -472,13 +504,10 @@
 <!-- Toast -->
 <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-<!-- SVG favicon inline -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" style="display:none" id="favicon-svg">
-  <rect width="32" height="32" rx="8" fill="#f0c14b"/>
-  <text x="16" y="22" text-anchor="middle" font-size="19">💸</text>
-</svg>
-
+<script src="assets/js/i18n.js"></script>
 <script src="assets/js/store.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/pdf.js"></script>
 <script src="assets/js/ui.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
